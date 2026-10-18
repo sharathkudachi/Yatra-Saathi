@@ -21,18 +21,33 @@ export async function apiRequest<T>(path: string, init?: RequestInit): Promise<T
     }
   }
   const normalizedPath = path.replace(/^\/+/, '')
-  let response: Response
-  try {
-    response = await fetch(`${baseUrl}/${normalizedPath}`, {
-      ...init,
-      headers,
-    })
-  } catch (cause: any) {
-    const msg = cause?.message || 'Network error'
-    if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || cause?.name === 'TypeError') {
-      throw new ApiError(`Cannot connect to backend server at ${baseUrl || 'local API'}. Please ensure the Yatra Saathi backend is running on port 8000.`, 0, 'CONNECTION_REFUSED')
+  let response!: Response
+  const maxAttempts = 2
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      response = await fetch(`${baseUrl}/${normalizedPath}`, {
+        ...init,
+        headers,
+      })
+      break
+    } catch (cause: any) {
+      const msg = cause?.message || 'Network error'
+      const isNetworkErr = msg.includes('Failed to fetch') || msg.includes('NetworkError') || cause?.name === 'TypeError'
+      if (isNetworkErr && attempt < maxAttempts) {
+        // Render free instances sleep after idle; pause briefly and retry once
+        await new Promise((r) => setTimeout(r, 1500))
+        continue
+      }
+      if (isNetworkErr) {
+        const isRender = baseUrl.includes('onrender.com')
+        const hint = isRender
+          ? 'The backend service may be waking up from idle (Render free tier). Please wait a moment and try again.'
+          : 'Please ensure the backend server is running and accessible.'
+        throw new ApiError(`Cannot connect to backend server at ${baseUrl || 'API'}. ${hint}`, 0, 'CONNECTION_REFUSED')
+      }
+      throw cause
     }
-    throw cause
   }
   if (response.status === 204) return undefined as T
 

@@ -93,9 +93,14 @@ def create_app(settings: Settings | None = None, clock=None, agent_dispatcher=No
     # Middleware must be registered before the lifespan runs, so CORS comes from the supplied
     # settings or straight from the environment.
     cors_origins = settings.cors_allow_origins if settings is not None else cors_origins_from_env()
-    if cors_origins:
-        app.add_middleware(CORSMiddleware, allow_origins=list(cors_origins), allow_credentials=False,
-                           allow_methods=["*"], allow_headers=["*"])
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=list(cors_origins) if cors_origins else ["*"],
+        allow_origin_regex=r"^https:\/\/.*yatra-saathi-frontend.*\.vercel\.app$",
+        allow_credentials=False,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
     api_errors.register(app)
 
