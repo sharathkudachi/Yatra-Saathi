@@ -11,3 +11,6 @@ pywebpush==2.0.3
 
 # Password hashing (Argon2id)
 argon2-cffi>=23.1.0
+
+# PostgreSQL database adapter (Neon / Remote Postgres)
+psycopg2-binary>=2.9.9

@@ -36,6 +36,44 @@ from scripts.seed_demo import seed
 
 def init_db(settings: Settings | None = None) -> int:
     settings = settings or Settings.from_env()
+
+    # 1. PostgreSQL (Neon / Cloud hosting) branch
+    if settings.is_postgres:
+        print(f"[Init DB] Detected PostgreSQL database backend via DATABASE_URL.")
+        from src.db.postgres_schema import init_postgres_schema
+        conn = connect(settings)
+        try:
+            num_stmts = init_postgres_schema(conn)
+            print(f"[Init DB] Applied {num_stmts} PostgreSQL schema definitions.")
+
+            # Seed demo user if not already present
+            row = conn.execute("SELECT user_id FROM users WHERE user_id = ?", ("usr_demo0001",)).fetchone()
+            if not row:
+                conn.execute(
+                    """INSERT INTO users (
+                        user_id, display_name, email, home_currency, locale, status, created_at,
+                        username, password_hash, email_verified
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                    (
+                        "usr_demo0001", "Demo Traveler", "sharath.demo@yatrasaathi.in", "INR", "en-IN",
+                        "active", "2026-10-18T10:00:00Z", "usr_demo0001",
+                        "$argon2id$v=19$m=65536,t=3,p=4$YYeqjFJESyftnO5vSIAeIw$ZC4FJtDLGldjICcaZ2lKHlhnjvDnHlRb0HYdtyTXy4Q", 1
+                    ),
+                )
+                conn.commit()
+                print("[Init DB] Seeded demo user: usr_demo0001.")
+            else:
+                print("[Init DB] Existing demo user usr_demo0001 verified.")
+
+            # Health check: query public tables
+            cur = conn.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+            tables = [r[0] for r in cur.fetchall()]
+            print(f"[Init DB] PostgreSQL Health Check PASSED: {len(tables)} tables verified.")
+        finally:
+            conn.close()
+        return 0
+
+    # 2. SQLite (Local / Stamped working copy) branch
     db_path = settings.require_db_path()
     original_path, expected_sha = settings.require_original()
 

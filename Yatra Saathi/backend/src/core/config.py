@@ -41,6 +41,7 @@ def _int(env: Mapping[str, str], name: str, default: int, lo: int, hi: int) -> i
 @dataclass(frozen=True)
 class Settings:
     db_path: Optional[str]
+    database_url: Optional[str]
     original_db_path: Optional[str]
     original_db_sha256: Optional[str]
     tax_rate_bp: int
@@ -74,8 +75,12 @@ class Settings:
         if sha is not None and not _SHA256_RE.match(sha):
             raise ConfigError("APS_DB_ORIGINAL_SHA256 must be 64 lowercase hex characters")
         demo_ids = tuple(u for u in (env.get("DEMO_LOGIN_USER_IDS") or "").split(",") if u)
+        raw_db_url = env.get("DATABASE_URL") or None
+        if raw_db_url and raw_db_url.startswith("postgres://"):
+            raw_db_url = "postgresql://" + raw_db_url[len("postgres://"):]
         return cls(
             db_path=env.get("APS_DB_PATH") or None,
+            database_url=raw_db_url,
             original_db_path=env.get("APS_DB_ORIGINAL_PATH") or None,
             original_db_sha256=sha,
             tax_rate_bp=_int(env, "TAX_RATE_BP", 1200, 0, 10000),
@@ -96,9 +101,17 @@ class Settings:
             notify_scheduler=(env.get("NOTIFY_SCHEDULER") or "").lower() in ("1", "true", "yes"),
         )
 
+    @property
+    def is_postgres(self) -> bool:
+        return bool(self.database_url and (
+            self.database_url.startswith("postgresql://") or self.database_url.startswith("postgres://")
+        ))
+
     def require_db_path(self) -> str:
+        if self.database_url:
+            return self.database_url
         if not self.db_path:
-            raise ConfigError("APS_DB_PATH is not set")
+            raise ConfigError("Neither DATABASE_URL nor APS_DB_PATH is set")
         return self.db_path
 
     def require_original(self) -> tuple[str, str]:
