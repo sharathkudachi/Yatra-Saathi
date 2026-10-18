@@ -1,0 +1,236 @@
+[
+  {
+    "id": "lng_982a6476",
+    "tag": "en-IN",
+    "englishName": "English (India)",
+    "nativeName": "English",
+    "script": "Latn",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_90b14a72",
+    "tag": "en-GB",
+    "englishName": "English (UK)",
+    "nativeName": "English",
+    "script": "Latn",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_7a6fe5b9",
+    "tag": "hi",
+    "englishName": "Hindi",
+    "nativeName": "हिन्दी",
+    "script": "Deva",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_599bbd0b",
+    "tag": "ta",
+    "englishName": "Tamil",
+    "nativeName": "தமிழ்",
+    "script": "Taml",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_b0a8d952",
+    "tag": "te",
+    "englishName": "Telugu",
+    "nativeName": "తెలుగు",
+    "script": "Telu",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_776b49e1",
+    "tag": "kn",
+    "englishName": "Kannada",
+    "nativeName": "ಕನ್ನಡ",
+    "script": "Knda",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_4e732c83",
+    "tag": "ml",
+    "englishName": "Malayalam",
+    "nativeName": "മലയാളം",
+    "script": "Mlym",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_9983741a",
+    "tag": "mr",
+    "englishName": "Marathi",
+    "nativeName": "मराठी",
+    "script": "Deva",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_e246ebda",
+    "tag": "bn",
+    "englishName": "Bengali",
+    "nativeName": "বাংলা",
+    "script": "Beng",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_fab6f47c",
+    "tag": "gu",
+    "englishName": "Gujarati",
+    "nativeName": "ગુજરાતી",
+    "script": "Gujr",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_2c0147f3",
+    "tag": "pa",
+    "englishName": "Punjabi",
+    "nativeName": "ਪੰਜਾਬੀ",
+    "script": "Guru",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_27985744",
+    "tag": "or",
+    "englishName": "Odia",
+    "nativeName": "ଓଡ଼ିଆ",
+    "script": "Orya",
+    "rtl": false,
+    "ttsSupported": false
+  },
+  {
+    "id": "lng_5f4f437e",
+    "tag": "as",
+    "englishName": "Assamese",
+    "nativeName": "অসমীয়া",
+    "script": "Beng",
+    "rtl": false,
+    "ttsSupported": false
+  },
+  {
+    "id": "lng_a25ce7eb",
+    "tag": "ur",
+    "englishName": "Urdu",
+    "nativeName": "اردو",
+    "script": "Arab",
+    "rtl": true,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_5c34a3a2",
+    "tag": "si",
+    "englishName": "Sinhala",
+    "nativeName": "සිංහල",
+    "script": "Sinh",
+    "rtl": false,
+    "ttsSupported": false
+  },
+  {
+    "id": "lng_090b7ffc",
+    "tag": "ne",
+    "englishName": "Nepali",
+    "nativeName": "नेपाली",
+    "script": "Deva",
+    "rtl": false,
+    "ttsSupported": false
+  },
+  {
+    "id": "lng_812bd38e",
+    "tag": "ar",
+    "englishName": "Arabic",
+    "nativeName": "العربية",
+    "script": "Arab",
+    "rtl": true,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_80b09d04",
+    "tag": "fr",
+    "englishName": "French",
+    "nativeName": "Français",
+    "script": "Latn",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_60b2be08",
+    "tag": "de",
+    "englishName": "German",
+    "nativeName": "Deutsch",
+    "script": "Latn",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_18b3f2a1",
+    "tag": "es",
+    "englishName": "Spanish",
+    "nativeName": "Español",
+    "script": "Latn",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_23f38733",
+    "tag": "ja",
+    "englishName": "Japanese",
+    "nativeName": "日本語",
+    "script": "Jpan",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_2da8bf24",
+    "tag": "ko",
+    "englishName": "Korean",
+    "nativeName": "한국어",
+    "script": "Kore",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_df1375ad",
+    "tag": "th",
+    "englishName": "Thai",
+    "nativeName": "ไทย",
+    "script": "Thai",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_4415273f",
+    "tag": "zh",
+    "englishName": "Chinese",
+    "nativeName": "中文",
+    "script": "Hans",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_a627157e",
+    "tag": "ms",
+    "englishName": "Malay",
+    "nativeName": "Bahasa Melayu",
+    "script": "Latn",
+    "rtl": false,
+    "ttsSupported": true
+  },
+  {
+    "id": "lng_8d750fd6",
+    "tag": "id",
+    "englishName": "Indonesian",
+    "nativeName": "Bahasa Indonesia",
+    "script": "Latn",
+    "rtl": false,
+    "ttsSupported": true
+  }
+]

@@ -1,0 +1,10 @@
+# --- Developer 2: travel agent (travel_agent/) ---
+langgraph>=1.2,<2        # workflow engine (graph.py); until installed a test-only stand-in runs
+pydantic>=2.9,<3         # proposed contracts (contracts.py)
+groq>=1.6,<2             # optional LLM: extraction + explanations (llm.py), needs GROQ_API_KEY
+python-dotenv>=1.0,<2    # loads .env for the standalone demo (runner.py)
+
+# --- Developer 2: tests (tests/developer2/, plain unittest; pytest also runs them) ---
+pytest>=8
+
+# --- Developer 1: add backend dependencies below (FastAPI, etc.) ---

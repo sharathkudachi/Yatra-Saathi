@@ -1,0 +1,10 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Organiser-supplied database (read-only source of truth; distribute separately)
+data/APS-01.db

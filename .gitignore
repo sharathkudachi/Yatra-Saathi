@@ -1,0 +1,64 @@
+# ==============================================================================
+# Yatra Root Git Ignore
+# ==============================================================================
+
+# Secrets and Local Environment Configuration
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Local Process Logs and PIDs
+.logs/
+*.log
+
+# Node Dependencies
+node_modules/
+
+# Python Virtual Environments and Caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Runtime Database State (All SQLite databases excluded from Git)
+*.db
+*.db-journal
+*.sqlite3
+backend/var/
+*/backend/var/
+*working*.db
+aps01_working.db
+
+# Frontend Build Outputs
+dist/
+*/dist/
+frontend/dist/
+*/frontend/dist/
+
+# Scratch & Temporary Diagnostic Files
+scratch/
+archive/scratch_debug/
+
+# Video Recordings & Temporary Media
+*.mp4
+*.mov
+*.webm
+qa_*.png
+screenshot_*.png
+walkthrough_*.png
+pids.json
+.pids.json
+
+# OS and Editor / Local IDE Metadata
+.DS_Store
+Thumbs.db
+.gemini/
+.gsd/
+
+# Root Prototype Lockfile (Preserves canonical kv-hack2026-tech4ce/frontend/package-lock.json)
+/package-lock.json
+
+# Temporary Office lock files
+.~*
+~$*
