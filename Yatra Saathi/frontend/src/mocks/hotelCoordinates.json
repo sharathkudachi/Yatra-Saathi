@@ -1,0 +1,1502 @@
+{
+  "htl_06d140bd": {
+    "latitude": 26.852525,
+    "longitude": 75.764345,
+    "address": "127 The Beach Road, Jaipur"
+  },
+  "htl_d8608c0c": {
+    "latitude": 26.900329,
+    "longitude": 75.723832,
+    "address": "28 The Old Bazaar, Jaipur"
+  },
+  "htl_51d644a1": {
+    "latitude": 26.939145,
+    "longitude": 75.814738,
+    "address": "99 The Temple Complex, Jaipur"
+  },
+  "htl_34e56f8c": {
+    "latitude": 26.961709,
+    "longitude": 75.740693,
+    "address": "71 The Temple Complex, Jaipur"
+  },
+  "htl_a4a12699": {
+    "latitude": 26.867117,
+    "longitude": 75.769586,
+    "address": "166 The Beach Road, Jaipur"
+  },
+  "htl_aacfaa8f": {
+    "latitude": 24.577775,
+    "longitude": 73.775844,
+    "address": "205 The Old Bazaar, Udaipur"
+  },
+  "htl_82a0debc": {
+    "latitude": 24.524951,
+    "longitude": 73.775062,
+    "address": "78 The Fort Gate, Udaipur"
+  },
+  "htl_e64a06ef": {
+    "latitude": 24.596323,
+    "longitude": 73.759117,
+    "address": "156 The Museum Quarter, Udaipur"
+  },
+  "htl_f4edf35d": {
+    "latitude": 24.611442,
+    "longitude": 73.688404,
+    "address": "108 The Museum Quarter, Udaipur"
+  },
+  "htl_6c7be3f3": {
+    "latitude": 24.583566,
+    "longitude": 73.714859,
+    "address": "16 The Fort Gate, Udaipur"
+  },
+  "htl_9191e906": {
+    "latitude": 26.239917,
+    "longitude": 72.986623,
+    "address": "218 The Railway Station, Jodhpur"
+  },
+  "htl_16ca75ac": {
+    "latitude": 26.277081,
+    "longitude": 72.986453,
+    "address": "188 The Fort Gate, Jodhpur"
+  },
+  "htl_fe66f74b": {
+    "latitude": 26.285821,
+    "longitude": 73.07232,
+    "address": "133 The Railway Station, Jodhpur"
+  },
+  "htl_d149da7c": {
+    "latitude": 26.255059,
+    "longitude": 73.003816,
+    "address": "183 The Lake Promenade, Jodhpur"
+  },
+  "htl_8ceae759": {
+    "latitude": 26.237089,
+    "longitude": 73.080899,
+    "address": "158 The Railway Station, Jodhpur"
+  },
+  "htl_97daa761": {
+    "latitude": 26.862641,
+    "longitude": 70.945096,
+    "address": "59 The Beach Road, Jaisalmer"
+  },
+  "htl_ca3e3a74": {
+    "latitude": 26.909391,
+    "longitude": 70.933282,
+    "address": "64 The River Ghats, Jaisalmer"
+  },
+  "htl_b4eb0f44": {
+    "latitude": 26.890556,
+    "longitude": 70.867236,
+    "address": "84 The Railway Station, Jaisalmer"
+  },
+  "htl_832544af": {
+    "latitude": 26.890145,
+    "longitude": 70.83924,
+    "address": "169 The Railway Station, Jaisalmer"
+  },
+  "htl_68af15a1": {
+    "latitude": 26.925871,
+    "longitude": 70.924154,
+    "address": "9 The River Ghats, Jaisalmer"
+  },
+  "htl_f89975f1": {
+    "latitude": 27.204171,
+    "longitude": 77.945351,
+    "address": "73 The Old Bazaar, Agra"
+  },
+  "htl_3f98054b": {
+    "latitude": 27.176436,
+    "longitude": 78.012431,
+    "address": "99 The Fort Gate, Agra"
+  },
+  "htl_437c0b59": {
+    "latitude": 27.236629,
+    "longitude": 77.942494,
+    "address": "152 The Lake Promenade, Agra"
+  },
+  "htl_abcdbceb": {
+    "latitude": 27.161871,
+    "longitude": 78.019153,
+    "address": "10 The River Ghats, Agra"
+  },
+  "htl_d1c721fa": {
+    "latitude": 27.186663,
+    "longitude": 77.995499,
+    "address": "149 The Museum Quarter, Agra"
+  },
+  "htl_af9267ba": {
+    "latitude": 25.29788,
+    "longitude": 83.036803,
+    "address": "45 The River Ghats, Varanasi"
+  },
+  "htl_9c129ce4": {
+    "latitude": 25.268939,
+    "longitude": 82.981907,
+    "address": "38 The Fort Gate, Varanasi"
+  },
+  "htl_d1d22033": {
+    "latitude": 25.321105,
+    "longitude": 82.969344,
+    "address": "114 The Temple Complex, Varanasi"
+  },
+  "htl_1b0f8353": {
+    "latitude": 25.369949,
+    "longitude": 83.02156,
+    "address": "67 The Railway Station, Varanasi"
+  },
+  "htl_d190083e": {
+    "latitude": 25.375372,
+    "longitude": 82.946419,
+    "address": "75 The River Ghats, Varanasi"
+  },
+  "htl_3c8db5e1": {
+    "latitude": 26.817522,
+    "longitude": 80.962115,
+    "address": "106 The Temple Complex, Lucknow"
+  },
+  "htl_95e7afb1": {
+    "latitude": 26.879502,
+    "longitude": 80.980043,
+    "address": "22 The Beach Road, Lucknow"
+  },
+  "htl_f32a6fab": {
+    "latitude": 26.895091,
+    "longitude": 80.994764,
+    "address": "14 The Lake Promenade, Lucknow"
+  },
+  "htl_edfb03a8": {
+    "latitude": 26.80501,
+    "longitude": 80.95119,
+    "address": "211 The Railway Station, Lucknow"
+  },
+  "htl_a4d27c8c": {
+    "latitude": 26.848874,
+    "longitude": 80.983415,
+    "address": "133 The Beach Road, Lucknow"
+  },
+  "htl_68ea7979": {
+    "latitude": 28.619945,
+    "longitude": 77.273528,
+    "address": "67 The Old Bazaar, New Delhi"
+  },
+  "htl_43f3566e": {
+    "latitude": 28.665209,
+    "longitude": 77.228121,
+    "address": "34 The Temple Complex, New Delhi"
+  },
+  "htl_ace63054": {
+    "latitude": 28.613281,
+    "longitude": 77.214958,
+    "address": "135 The Museum Quarter, New Delhi"
+  },
+  "htl_40a881e8": {
+    "latitude": 28.58748,
+    "longitude": 77.20549,
+    "address": "107 The Old Bazaar, New Delhi"
+  },
+  "htl_df6e2340": {
+    "latitude": 28.617251,
+    "longitude": 77.171417,
+    "address": "5 The River Ghats, New Delhi"
+  },
+  "htl_3e3a38c5": {
+    "latitude": 31.595665,
+    "longitude": 74.832594,
+    "address": "32 The Railway Station, Amritsar"
+  },
+  "htl_d07e29f4": {
+    "latitude": 31.68573,
+    "longitude": 74.891603,
+    "address": "192 The Temple Complex, Amritsar"
+  },
+  "htl_fb894fd0": {
+    "latitude": 31.579987,
+    "longitude": 74.805654,
+    "address": "43 The Old Bazaar, Amritsar"
+  },
+  "htl_7b47fb46": {
+    "latitude": 31.676599,
+    "longitude": 74.848684,
+    "address": "198 The Fort Gate, Amritsar"
+  },
+  "htl_34abcc09": {
+    "latitude": 31.686446,
+    "longitude": 74.905585,
+    "address": "119 The Museum Quarter, Amritsar"
+  },
+  "htl_2ca76c96": {
+    "latitude": 31.112866,
+    "longitude": 77.121961,
+    "address": "21 The River Ghats, Shimla"
+  },
+  "htl_d9b34d26": {
+    "latitude": 31.061101,
+    "longitude": 77.124526,
+    "address": "39 The Lake Promenade, Shimla"
+  },
+  "htl_b868ebcf": {
+    "latitude": 31.060196,
+    "longitude": 77.110715,
+    "address": "214 The River Ghats, Shimla"
+  },
+  "htl_4e4752d8": {
+    "latitude": 31.154475,
+    "longitude": 77.121271,
+    "address": "37 The Beach Road, Shimla"
+  },
+  "htl_9e900d70": {
+    "latitude": 31.05678,
+    "longitude": 77.17468,
+    "address": "97 The River Ghats, Shimla"
+  },
+  "htl_64b0b167": {
+    "latitude": 32.211981,
+    "longitude": 77.186943,
+    "address": "153 The Old Bazaar, Manali"
+  },
+  "htl_7a46102c": {
+    "latitude": 32.202383,
+    "longitude": 77.165506,
+    "address": "154 The Lake Promenade, Manali"
+  },
+  "htl_c758f72a": {
+    "latitude": 32.178366,
+    "longitude": 77.21341,
+    "address": "57 The Lake Promenade, Manali"
+  },
+  "htl_623c41c5": {
+    "latitude": 32.268447,
+    "longitude": 77.248649,
+    "address": "169 The Lake Promenade, Manali"
+  },
+  "htl_97c0591b": {
+    "latitude": 32.271843,
+    "longitude": 77.137171,
+    "address": "176 The Railway Station, Manali"
+  },
+  "htl_2b79009c": {
+    "latitude": 30.075587,
+    "longitude": 78.331398,
+    "address": "27 The Old Bazaar, Rishikesh"
+  },
+  "htl_a7f2c402": {
+    "latitude": 30.130643,
+    "longitude": 78.243457,
+    "address": "56 The Lake Promenade, Rishikesh"
+  },
+  "htl_64e6662b": {
+    "latitude": 30.137681,
+    "longitude": 78.247418,
+    "address": "181 The Beach Road, Rishikesh"
+  },
+  "htl_0e2c0e6e": {
+    "latitude": 30.090279,
+    "longitude": 78.289286,
+    "address": "79 The Fort Gate, Rishikesh"
+  },
+  "htl_34a81c98": {
+    "latitude": 30.024601,
+    "longitude": 78.252328,
+    "address": "89 The Railway Station, Rishikesh"
+  },
+  "htl_fc4f2312": {
+    "latitude": 29.430347,
+    "longitude": 79.532204,
+    "address": "67 The Old Bazaar, Nainital"
+  },
+  "htl_2c61b5c9": {
+    "latitude": 29.382732,
+    "longitude": 79.422096,
+    "address": "38 The Museum Quarter, Nainital"
+  },
+  "htl_7920dc76": {
+    "latitude": 29.398652,
+    "longitude": 79.440045,
+    "address": "30 The Museum Quarter, Nainital"
+  },
+  "htl_07bfe1c5": {
+    "latitude": 29.427485,
+    "longitude": 79.414638,
+    "address": "34 The Fort Gate, Nainital"
+  },
+  "htl_8727e865": {
+    "latitude": 29.328596,
+    "longitude": 79.463024,
+    "address": "91 The Lake Promenade, Nainital"
+  },
+  "htl_edab68d0": {
+    "latitude": 34.160827,
+    "longitude": 77.566847,
+    "address": "35 The Beach Road, Leh"
+  },
+  "htl_76c57a96": {
+    "latitude": 34.134497,
+    "longitude": 77.509098,
+    "address": "109 The Beach Road, Leh"
+  },
+  "htl_f6df417b": {
+    "latitude": 34.195582,
+    "longitude": 77.652063,
+    "address": "193 The River Ghats, Leh"
+  },
+  "htl_73b94512": {
+    "latitude": 34.156052,
+    "longitude": 77.503286,
+    "address": "104 The Museum Quarter, Leh"
+  },
+  "htl_d526541d": {
+    "latitude": 34.187006,
+    "longitude": 77.647838,
+    "address": "161 The Railway Station, Leh"
+  },
+  "htl_c6ab89b1": {
+    "latitude": 34.064104,
+    "longitude": 74.797307,
+    "address": "159 The River Ghats, Srinagar"
+  },
+  "htl_cb869e4b": {
+    "latitude": 34.056808,
+    "longitude": 74.753864,
+    "address": "90 The Museum Quarter, Srinagar"
+  },
+  "htl_53f95667": {
+    "latitude": 34.076133,
+    "longitude": 74.735168,
+    "address": "59 The Old Bazaar, Srinagar"
+  },
+  "htl_4449653d": {
+    "latitude": 34.022081,
+    "longitude": 74.8219,
+    "address": "166 The Museum Quarter, Srinagar"
+  },
+  "htl_6439d03a": {
+    "latitude": 34.025164,
+    "longitude": 74.872674,
+    "address": "122 The Museum Quarter, Srinagar"
+  },
+  "htl_e28207c9": {
+    "latitude": 19.104227,
+    "longitude": 72.926047,
+    "address": "121 The Old Bazaar, Mumbai"
+  },
+  "htl_6fdb8c08": {
+    "latitude": 19.093303,
+    "longitude": 72.915793,
+    "address": "6 The Beach Road, Mumbai"
+  },
+  "htl_f819e1d6": {
+    "latitude": 19.101369,
+    "longitude": 72.926543,
+    "address": "53 The Fort Gate, Mumbai"
+  },
+  "htl_7e8acd66": {
+    "latitude": 19.128443,
+    "longitude": 72.851868,
+    "address": "93 The River Ghats, Mumbai"
+  },
+  "htl_52debcee": {
+    "latitude": 19.125302,
+    "longitude": 72.82938,
+    "address": "54 The Lake Promenade, Mumbai"
+  },
+  "htl_b76950b4": {
+    "latitude": 18.535794,
+    "longitude": 73.825261,
+    "address": "191 The Fort Gate, Pune"
+  },
+  "htl_bf05fe97": {
+    "latitude": 18.465208,
+    "longitude": 73.892151,
+    "address": "102 The River Ghats, Pune"
+  },
+  "htl_4a6af4a8": {
+    "latitude": 18.527496,
+    "longitude": 73.859392,
+    "address": "142 The Old Bazaar, Pune"
+  },
+  "htl_692b71cc": {
+    "latitude": 18.492088,
+    "longitude": 73.8799,
+    "address": "153 The River Ghats, Pune"
+  },
+  "htl_6961a498": {
+    "latitude": 18.535825,
+    "longitude": 73.889027,
+    "address": "48 The Lake Promenade, Pune"
+  },
+  "htl_1dc2d45a": {
+    "latitude": 19.875814,
+    "longitude": 75.339295,
+    "address": "171 The Beach Road, Aurangabad"
+  },
+  "htl_d1ff6baa": {
+    "latitude": 19.835937,
+    "longitude": 75.281866,
+    "address": "120 The Old Bazaar, Aurangabad"
+  },
+  "htl_28873757": {
+    "latitude": 19.831887,
+    "longitude": 75.363297,
+    "address": "108 The Old Bazaar, Aurangabad"
+  },
+  "htl_be32214e": {
+    "latitude": 19.877086,
+    "longitude": 75.318236,
+    "address": "179 The Lake Promenade, Aurangabad"
+  },
+  "htl_9553dd98": {
+    "latitude": 19.866435,
+    "longitude": 75.390989,
+    "address": "164 The Railway Station, Aurangabad"
+  },
+  "htl_7d0e7ea3": {
+    "latitude": 22.980533,
+    "longitude": 72.583553,
+    "address": "87 The Lake Promenade, Ahmedabad"
+  },
+  "htl_7cacf12d": {
+    "latitude": 23.005287,
+    "longitude": 72.564759,
+    "address": "164 The Fort Gate, Ahmedabad"
+  },
+  "htl_107cf306": {
+    "latitude": 22.987864,
+    "longitude": 72.536796,
+    "address": "140 The Beach Road, Ahmedabad"
+  },
+  "htl_9fca9e1c": {
+    "latitude": 22.960944,
+    "longitude": 72.545067,
+    "address": "54 The Railway Station, Ahmedabad"
+  },
+  "htl_55eda192": {
+    "latitude": 22.999463,
+    "longitude": 72.562021,
+    "address": "50 The Beach Road, Ahmedabad"
+  },
+  "htl_85d1f924": {
+    "latitude": 23.229595,
+    "longitude": 69.724628,
+    "address": "218 The Lake Promenade, Bhuj"
+  },
+  "htl_fa769a3e": {
+    "latitude": 23.180778,
+    "longitude": 69.719292,
+    "address": "130 The Museum Quarter, Bhuj"
+  },
+  "htl_4906f5ef": {
+    "latitude": 23.258625,
+    "longitude": 69.643285,
+    "address": "23 The Lake Promenade, Bhuj"
+  },
+  "htl_722f8202": {
+    "latitude": 23.281341,
+    "longitude": 69.639763,
+    "address": "20 The Beach Road, Bhuj"
+  },
+  "htl_f8fc5376": {
+    "latitude": 23.211919,
+    "longitude": 69.621853,
+    "address": "8 The Railway Station, Bhuj"
+  },
+  "htl_704d96f5": {
+    "latitude": 15.451522,
+    "longitude": 73.772773,
+    "address": "45 The Temple Complex, Panaji"
+  },
+  "htl_14aa3026": {
+    "latitude": 15.463106,
+    "longitude": 73.830373,
+    "address": "4 The River Ghats, Panaji"
+  },
+  "htl_1ef3de6b": {
+    "latitude": 15.485783,
+    "longitude": 73.777602,
+    "address": "198 The Fort Gate, Panaji"
+  },
+  "htl_13ad06f2": {
+    "latitude": 15.535811,
+    "longitude": 73.831522,
+    "address": "42 The River Ghats, Panaji"
+  },
+  "htl_5488ed63": {
+    "latitude": 15.5128,
+    "longitude": 73.820725,
+    "address": "19 The Lake Promenade, Panaji"
+  },
+  "htl_ed48c7a2": {
+    "latitude": 12.957333,
+    "longitude": 77.563754,
+    "address": "1 The Lake Promenade, Bengaluru"
+  },
+  "htl_aceeb75d": {
+    "latitude": 12.980479,
+    "longitude": 77.615566,
+    "address": "123 The River Ghats, Bengaluru"
+  },
+  "htl_df0a4506": {
+    "latitude": 12.9763,
+    "longitude": 77.65446,
+    "address": "140 The Fort Gate, Bengaluru"
+  },
+  "htl_5cc7b022": {
+    "latitude": 12.932637,
+    "longitude": 77.545491,
+    "address": "23 The Old Bazaar, Bengaluru"
+  },
+  "htl_436d4430": {
+    "latitude": 12.933013,
+    "longitude": 77.644246,
+    "address": "125 The Temple Complex, Bengaluru"
+  },
+  "htl_ee1f6167": {
+    "latitude": 12.278265,
+    "longitude": 76.682251,
+    "address": "53 The River Ghats, Mysuru"
+  },
+  "htl_6f9c55b9": {
+    "latitude": 12.306351,
+    "longitude": 76.636953,
+    "address": "43 The Fort Gate, Mysuru"
+  },
+  "htl_e7f80c48": {
+    "latitude": 12.249381,
+    "longitude": 76.629331,
+    "address": "36 The Temple Complex, Mysuru"
+  },
+  "htl_a7836911": {
+    "latitude": 12.233407,
+    "longitude": 76.675301,
+    "address": "89 The Railway Station, Mysuru"
+  },
+  "htl_c649fa89": {
+    "latitude": 12.291602,
+    "longitude": 76.580291,
+    "address": "170 The Temple Complex, Mysuru"
+  },
+  "htl_62ba5d99": {
+    "latitude": 15.294543,
+    "longitude": 76.496883,
+    "address": "40 The Old Bazaar, Hampi"
+  },
+  "htl_a131f5ce": {
+    "latitude": 15.373104,
+    "longitude": 76.414695,
+    "address": "162 The Temple Complex, Hampi"
+  },
+  "htl_5f017daa": {
+    "latitude": 15.381859,
+    "longitude": 76.444025,
+    "address": "64 The Museum Quarter, Hampi"
+  },
+  "htl_b58f3951": {
+    "latitude": 15.344087,
+    "longitude": 76.491638,
+    "address": "149 The Temple Complex, Hampi"
+  },
+  "htl_f415989a": {
+    "latitude": 15.335946,
+    "longitude": 76.448018,
+    "address": "17 The Old Bazaar, Hampi"
+  },
+  "htl_d1b123ad": {
+    "latitude": 14.526082,
+    "longitude": 74.260624,
+    "address": "39 The River Ghats, Gokarna"
+  },
+  "htl_0c108c67": {
+    "latitude": 14.547124,
+    "longitude": 74.299864,
+    "address": "97 The Temple Complex, Gokarna"
+  },
+  "htl_3e63856a": {
+    "latitude": 14.547136,
+    "longitude": 74.303425,
+    "address": "74 The Fort Gate, Gokarna"
+  },
+  "htl_b1b494c7": {
+    "latitude": 14.597242,
+    "longitude": 74.308868,
+    "address": "99 The Lake Promenade, Gokarna"
+  },
+  "htl_c134b947": {
+    "latitude": 14.497661,
+    "longitude": 74.357062,
+    "address": "120 The Lake Promenade, Gokarna"
+  },
+  "htl_040c557e": {
+    "latitude": 13.140122,
+    "longitude": 80.327382,
+    "address": "67 The Railway Station, Chennai"
+  },
+  "htl_8179b205": {
+    "latitude": 13.138931,
+    "longitude": 80.321072,
+    "address": "168 The Museum Quarter, Chennai"
+  },
+  "htl_9b015642": {
+    "latitude": 13.123055,
+    "longitude": 80.254938,
+    "address": "48 The Beach Road, Chennai"
+  },
+  "htl_e13e7c6e": {
+    "latitude": 13.02853,
+    "longitude": 80.299945,
+    "address": "77 The Fort Gate, Chennai"
+  },
+  "htl_b93e42eb": {
+    "latitude": 13.062536,
+    "longitude": 80.245985,
+    "address": "205 The Lake Promenade, Chennai"
+  },
+  "htl_9643ee61": {
+    "latitude": 9.918065,
+    "longitude": 78.112807,
+    "address": "135 The Beach Road, Madurai"
+  },
+  "htl_c9bc505f": {
+    "latitude": 9.904666,
+    "longitude": 78.179477,
+    "address": "117 The Lake Promenade, Madurai"
+  },
+  "htl_7aa20f17": {
+    "latitude": 9.889554,
+    "longitude": 78.128969,
+    "address": "93 The Temple Complex, Madurai"
+  },
+  "htl_ec9ef535": {
+    "latitude": 9.869311,
+    "longitude": 78.160795,
+    "address": "131 The Temple Complex, Madurai"
+  },
+  "htl_bc107f55": {
+    "latitude": 9.941689,
+    "longitude": 78.124689,
+    "address": "7 The River Ghats, Madurai"
+  },
+  "htl_7bdd1aff": {
+    "latitude": 11.468982,
+    "longitude": 76.686435,
+    "address": "101 The Beach Road, Ooty"
+  },
+  "htl_e3c2d87b": {
+    "latitude": 11.457434,
+    "longitude": 76.743024,
+    "address": "38 The Railway Station, Ooty"
+  },
+  "htl_bf678135": {
+    "latitude": 11.42509,
+    "longitude": 76.688271,
+    "address": "117 The Old Bazaar, Ooty"
+  },
+  "htl_13418139": {
+    "latitude": 11.371256,
+    "longitude": 76.714078,
+    "address": "68 The Lake Promenade, Ooty"
+  },
+  "htl_5a20d360": {
+    "latitude": 11.358074,
+    "longitude": 76.742049,
+    "address": "121 The Old Bazaar, Ooty"
+  },
+  "htl_b9dc154f": {
+    "latitude": 11.912958,
+    "longitude": 79.830769,
+    "address": "186 The Old Bazaar, Pondicherry"
+  },
+  "htl_7bb07d85": {
+    "latitude": 11.866931,
+    "longitude": 79.841757,
+    "address": "105 The Museum Quarter, Pondicherry"
+  },
+  "htl_718f3718": {
+    "latitude": 11.965756,
+    "longitude": 79.780225,
+    "address": "11 The Old Bazaar, Pondicherry"
+  },
+  "htl_4aef7a7a": {
+    "latitude": 11.964895,
+    "longitude": 79.858766,
+    "address": "16 The Lake Promenade, Pondicherry"
+  },
+  "htl_101afcbe": {
+    "latitude": 11.970689,
+    "longitude": 79.788892,
+    "address": "135 The Fort Gate, Pondicherry"
+  },
+  "htl_ddccdc31": {
+    "latitude": 10.784137,
+    "longitude": 79.179681,
+    "address": "32 The Railway Station, Thanjavur"
+  },
+  "htl_960025d2": {
+    "latitude": 10.81066,
+    "longitude": 79.171311,
+    "address": "62 The Museum Quarter, Thanjavur"
+  },
+  "htl_c8a743dd": {
+    "latitude": 10.779569,
+    "longitude": 79.091855,
+    "address": "64 The Beach Road, Thanjavur"
+  },
+  "htl_cebc7d14": {
+    "latitude": 10.726446,
+    "longitude": 79.089011,
+    "address": "33 The Lake Promenade, Thanjavur"
+  },
+  "htl_0271c63d": {
+    "latitude": 10.748318,
+    "longitude": 79.162742,
+    "address": "167 The Fort Gate, Thanjavur"
+  },
+  "htl_90bb6e48": {
+    "latitude": 9.965916,
+    "longitude": 76.274235,
+    "address": "118 The River Ghats, Kochi"
+  },
+  "htl_871f7548": {
+    "latitude": 9.989886,
+    "longitude": 76.228721,
+    "address": "183 The Old Bazaar, Kochi"
+  },
+  "htl_fd99a5e3": {
+    "latitude": 9.893178,
+    "longitude": 76.256188,
+    "address": "101 The Beach Road, Kochi"
+  },
+  "htl_02220bb1": {
+    "latitude": 9.908894,
+    "longitude": 76.24812,
+    "address": "183 The River Ghats, Kochi"
+  },
+  "htl_068a2e31": {
+    "latitude": 9.979794,
+    "longitude": 76.277368,
+    "address": "31 The Old Bazaar, Kochi"
+  },
+  "htl_8dd76814": {
+    "latitude": 9.535743,
+    "longitude": 76.316883,
+    "address": "74 The Beach Road, Alleppey"
+  },
+  "htl_ea1d6629": {
+    "latitude": 9.54462,
+    "longitude": 76.389358,
+    "address": "193 The Fort Gate, Alleppey"
+  },
+  "htl_8f2c9fd3": {
+    "latitude": 9.55437,
+    "longitude": 76.339686,
+    "address": "66 The Lake Promenade, Alleppey"
+  },
+  "htl_25648fce": {
+    "latitude": 9.556639,
+    "longitude": 76.294722,
+    "address": "34 The Museum Quarter, Alleppey"
+  },
+  "htl_2755e47d": {
+    "latitude": 9.469199,
+    "longitude": 76.362434,
+    "address": "130 The Museum Quarter, Alleppey"
+  },
+  "htl_84019428": {
+    "latitude": 10.072777,
+    "longitude": 77.025597,
+    "address": "35 The Fort Gate, Munnar"
+  },
+  "htl_4e72ba4d": {
+    "latitude": 10.08845,
+    "longitude": 77.051769,
+    "address": "204 The Fort Gate, Munnar"
+  },
+  "htl_a47cd4c7": {
+    "latitude": 10.097446,
+    "longitude": 77.025416,
+    "address": "116 The Beach Road, Munnar"
+  },
+  "htl_48fec9af": {
+    "latitude": 10.053343,
+    "longitude": 77.06652,
+    "address": "125 The Beach Road, Munnar"
+  },
+  "htl_b36fd517": {
+    "latitude": 10.094923,
+    "longitude": 77.028153,
+    "address": "62 The Fort Gate, Munnar"
+  },
+  "htl_298b4ec1": {
+    "latitude": 8.552326,
+    "longitude": 76.986715,
+    "address": "167 The River Ghats, Thiruvananthapuram"
+  },
+  "htl_d205a5e4": {
+    "latitude": 8.4735,
+    "longitude": 76.994104,
+    "address": "75 The Lake Promenade, Thiruvananthapuram"
+  },
+  "htl_c0de65d4": {
+    "latitude": 8.575854,
+    "longitude": 76.901038,
+    "address": "106 The Railway Station, Thiruvananthapuram"
+  },
+  "htl_dc149b42": {
+    "latitude": 8.466092,
+    "longitude": 76.887269,
+    "address": "91 The Fort Gate, Thiruvananthapuram"
+  },
+  "htl_4d461be6": {
+    "latitude": 8.541739,
+    "longitude": 76.967739,
+    "address": "162 The Fort Gate, Thiruvananthapuram"
+  },
+  "htl_273028a1": {
+    "latitude": 11.704315,
+    "longitude": 76.149703,
+    "address": "49 The Beach Road, Wayanad"
+  },
+  "htl_30653890": {
+    "latitude": 11.637982,
+    "longitude": 76.139791,
+    "address": "75 The Temple Complex, Wayanad"
+  },
+  "htl_bfce4849": {
+    "latitude": 11.690714,
+    "longitude": 76.100802,
+    "address": "35 The Temple Complex, Wayanad"
+  },
+  "htl_bf31f384": {
+    "latitude": 11.654037,
+    "longitude": 76.175823,
+    "address": "79 The Railway Station, Wayanad"
+  },
+  "htl_48b38cd2": {
+    "latitude": 11.7475,
+    "longitude": 76.194819,
+    "address": "128 The Lake Promenade, Wayanad"
+  },
+  "htl_9591edb5": {
+    "latitude": 17.341138,
+    "longitude": 78.483039,
+    "address": "219 The Railway Station, Hyderabad"
+  },
+  "htl_44f1ae8b": {
+    "latitude": 17.409413,
+    "longitude": 78.435406,
+    "address": "117 The Railway Station, Hyderabad"
+  },
+  "htl_01cc0635": {
+    "latitude": 17.339611,
+    "longitude": 78.468229,
+    "address": "188 The Museum Quarter, Hyderabad"
+  },
+  "htl_14e0ebdc": {
+    "latitude": 17.406608,
+    "longitude": 78.485873,
+    "address": "153 The Beach Road, Hyderabad"
+  },
+  "htl_b24e5527": {
+    "latitude": 17.393145,
+    "longitude": 78.451365,
+    "address": "71 The Lake Promenade, Hyderabad"
+  },
+  "htl_33999106": {
+    "latitude": 17.668218,
+    "longitude": 83.269358,
+    "address": "110 The Fort Gate, Visakhapatnam"
+  },
+  "htl_0a785439": {
+    "latitude": 17.637137,
+    "longitude": 83.16275,
+    "address": "4 The Fort Gate, Visakhapatnam"
+  },
+  "htl_b3c102fc": {
+    "latitude": 17.675246,
+    "longitude": 83.209052,
+    "address": "101 The Beach Road, Visakhapatnam"
+  },
+  "htl_76cb1dd1": {
+    "latitude": 17.673339,
+    "longitude": 83.182635,
+    "address": "213 The Railway Station, Visakhapatnam"
+  },
+  "htl_dfe97fda": {
+    "latitude": 17.692175,
+    "longitude": 83.269905,
+    "address": "77 The Fort Gate, Visakhapatnam"
+  },
+  "htl_245a6528": {
+    "latitude": 13.673357,
+    "longitude": 79.393278,
+    "address": "68 The Museum Quarter, Tirupati"
+  },
+  "htl_79d42624": {
+    "latitude": 13.593547,
+    "longitude": 79.446943,
+    "address": "2 The Temple Complex, Tirupati"
+  },
+  "htl_764cb54e": {
+    "latitude": 13.634121,
+    "longitude": 79.371868,
+    "address": "167 The Fort Gate, Tirupati"
+  },
+  "htl_abb24469": {
+    "latitude": 13.656973,
+    "longitude": 79.478071,
+    "address": "142 The Temple Complex, Tirupati"
+  },
+  "htl_02acd495": {
+    "latitude": 13.597822,
+    "longitude": 79.425772,
+    "address": "47 The Museum Quarter, Tirupati"
+  },
+  "htl_47d978bd": {
+    "latitude": 22.515207,
+    "longitude": 88.355168,
+    "address": "98 The River Ghats, Kolkata"
+  },
+  "htl_3ae2dcdc": {
+    "latitude": 22.596172,
+    "longitude": 88.309764,
+    "address": "43 The Museum Quarter, Kolkata"
+  },
+  "htl_e2de8e67": {
+    "latitude": 22.511198,
+    "longitude": 88.430445,
+    "address": "179 The Old Bazaar, Kolkata"
+  },
+  "htl_bae73dee": {
+    "latitude": 22.625578,
+    "longitude": 88.390716,
+    "address": "172 The Lake Promenade, Kolkata"
+  },
+  "htl_f240ca58": {
+    "latitude": 22.603289,
+    "longitude": 88.422237,
+    "address": "102 The Fort Gate, Kolkata"
+  },
+  "htl_8355f0e8": {
+    "latitude": 27.087226,
+    "longitude": 88.225129,
+    "address": "111 The Fort Gate, Darjeeling"
+  },
+  "htl_56eca5af": {
+    "latitude": 27.046083,
+    "longitude": 88.308109,
+    "address": "171 The Temple Complex, Darjeeling"
+  },
+  "htl_436b30f2": {
+    "latitude": 27.060635,
+    "longitude": 88.320414,
+    "address": "71 The Lake Promenade, Darjeeling"
+  },
+  "htl_856e726b": {
+    "latitude": 26.980221,
+    "longitude": 88.275683,
+    "address": "186 The Temple Complex, Darjeeling"
+  },
+  "htl_8af8dc5e": {
+    "latitude": 27.047792,
+    "longitude": 88.295019,
+    "address": "179 The Old Bazaar, Darjeeling"
+  },
+  "htl_a4e3bbe6": {
+    "latitude": 19.821471,
+    "longitude": 85.882142,
+    "address": "38 The Museum Quarter, Puri"
+  },
+  "htl_601e876f": {
+    "latitude": 19.784966,
+    "longitude": 85.870576,
+    "address": "75 The Temple Complex, Puri"
+  },
+  "htl_4374ecd9": {
+    "latitude": 19.864864,
+    "longitude": 85.848301,
+    "address": "8 The Museum Quarter, Puri"
+  },
+  "htl_33ef8894": {
+    "latitude": 19.836845,
+    "longitude": 85.872228,
+    "address": "45 The Railway Station, Puri"
+  },
+  "htl_2cbf2c51": {
+    "latitude": 19.792109,
+    "longitude": 85.785647,
+    "address": "214 The Old Bazaar, Puri"
+  },
+  "htl_134fd9ab": {
+    "latitude": 20.285207,
+    "longitude": 85.883652,
+    "address": "62 The Lake Promenade, Bhubaneswar"
+  },
+  "htl_33095d0f": {
+    "latitude": 20.353474,
+    "longitude": 85.875135,
+    "address": "177 The River Ghats, Bhubaneswar"
+  },
+  "htl_6cf4a14b": {
+    "latitude": 20.332071,
+    "longitude": 85.879501,
+    "address": "1 The Fort Gate, Bhubaneswar"
+  },
+  "htl_c5416060": {
+    "latitude": 20.3504,
+    "longitude": 85.884984,
+    "address": "26 The Temple Complex, Bhubaneswar"
+  },
+  "htl_886263e9": {
+    "latitude": 20.28385,
+    "longitude": 85.803183,
+    "address": "102 The Temple Complex, Bhubaneswar"
+  },
+  "htl_29ab8d35": {
+    "latitude": 26.161738,
+    "longitude": 91.767142,
+    "address": "36 The Lake Promenade, Guwahati"
+  },
+  "htl_2794421e": {
+    "latitude": 26.188015,
+    "longitude": 91.679148,
+    "address": "82 The Temple Complex, Guwahati"
+  },
+  "htl_c1021bb3": {
+    "latitude": 26.121727,
+    "longitude": 91.700315,
+    "address": "34 The Fort Gate, Guwahati"
+  },
+  "htl_f8bfa434": {
+    "latitude": 26.200076,
+    "longitude": 91.793156,
+    "address": "92 The Lake Promenade, Guwahati"
+  },
+  "htl_a8390357": {
+    "latitude": 26.118056,
+    "longitude": 91.770217,
+    "address": "66 The Beach Road, Guwahati"
+  },
+  "htl_c3b644f4": {
+    "latitude": 25.640127,
+    "longitude": 91.919624,
+    "address": "16 The Lake Promenade, Shillong"
+  },
+  "htl_eb7ff223": {
+    "latitude": 25.628767,
+    "longitude": 91.844113,
+    "address": "116 The Museum Quarter, Shillong"
+  },
+  "htl_8d39efd7": {
+    "latitude": 25.561634,
+    "longitude": 91.867422,
+    "address": "125 The Beach Road, Shillong"
+  },
+  "htl_7c198d6d": {
+    "latitude": 25.547556,
+    "longitude": 91.847697,
+    "address": "147 The Lake Promenade, Shillong"
+  },
+  "htl_66ddcad3": {
+    "latitude": 25.556705,
+    "longitude": 91.943571,
+    "address": "115 The Lake Promenade, Shillong"
+  },
+  "htl_15d2dc78": {
+    "latitude": 27.296967,
+    "longitude": 88.572077,
+    "address": "163 The Old Bazaar, Gangtok"
+  },
+  "htl_5204cc3f": {
+    "latitude": 27.391145,
+    "longitude": 88.609894,
+    "address": "128 The Museum Quarter, Gangtok"
+  },
+  "htl_9ce8d068": {
+    "latitude": 27.369148,
+    "longitude": 88.668749,
+    "address": "151 The Railway Station, Gangtok"
+  },
+  "htl_f7f9a831": {
+    "latitude": 27.399346,
+    "longitude": 88.599797,
+    "address": "116 The Museum Quarter, Gangtok"
+  },
+  "htl_02bb587c": {
+    "latitude": 27.276486,
+    "longitude": 88.60745,
+    "address": "23 The Beach Road, Gangtok"
+  },
+  "htl_fe5eb48a": {
+    "latitude": 6.898503,
+    "longitude": 79.901621,
+    "address": "178 The Lake Promenade, Colombo"
+  },
+  "htl_0c78227f": {
+    "latitude": 6.900159,
+    "longitude": 79.846417,
+    "address": "142 The Lake Promenade, Colombo"
+  },
+  "htl_81469f7e": {
+    "latitude": 6.894585,
+    "longitude": 79.840844,
+    "address": "153 The Old Bazaar, Colombo"
+  },
+  "htl_4ad0f6f7": {
+    "latitude": 6.908153,
+    "longitude": 79.914442,
+    "address": "164 The Railway Station, Colombo"
+  },
+  "htl_926da217": {
+    "latitude": 6.902439,
+    "longitude": 79.878384,
+    "address": "75 The Temple Complex, Colombo"
+  },
+  "htl_5e432970": {
+    "latitude": 7.307469,
+    "longitude": 80.572243,
+    "address": "166 The Lake Promenade, Kandy"
+  },
+  "htl_c8c81865": {
+    "latitude": 7.342512,
+    "longitude": 80.681123,
+    "address": "216 The Museum Quarter, Kandy"
+  },
+  "htl_742928a2": {
+    "latitude": 7.289316,
+    "longitude": 80.577316,
+    "address": "102 The River Ghats, Kandy"
+  },
+  "htl_472830e6": {
+    "latitude": 7.300356,
+    "longitude": 80.678893,
+    "address": "38 The Lake Promenade, Kandy"
+  },
+  "htl_de3e4a9f": {
+    "latitude": 7.267227,
+    "longitude": 80.642156,
+    "address": "53 The River Ghats, Kandy"
+  },
+  "htl_bd6ac349": {
+    "latitude": 27.739162,
+    "longitude": 85.331723,
+    "address": "143 The Temple Complex, Kathmandu"
+  },
+  "htl_b88b0c27": {
+    "latitude": 27.71432,
+    "longitude": 85.352197,
+    "address": "57 The Temple Complex, Kathmandu"
+  },
+  "htl_26fee559": {
+    "latitude": 27.779887,
+    "longitude": 85.278411,
+    "address": "184 The Museum Quarter, Kathmandu"
+  },
+  "htl_c8756032": {
+    "latitude": 27.758973,
+    "longitude": 85.356114,
+    "address": "183 The Railway Station, Kathmandu"
+  },
+  "htl_fa8543cb": {
+    "latitude": 27.671496,
+    "longitude": 85.378585,
+    "address": "204 The Lake Promenade, Kathmandu"
+  },
+  "htl_285912dc": {
+    "latitude": 28.209892,
+    "longitude": 83.989241,
+    "address": "10 The Fort Gate, Pokhara"
+  },
+  "htl_24e39565": {
+    "latitude": 28.202101,
+    "longitude": 84.008692,
+    "address": "179 The Railway Station, Pokhara"
+  },
+  "htl_be3b648f": {
+    "latitude": 28.163942,
+    "longitude": 83.939375,
+    "address": "155 The Temple Complex, Pokhara"
+  },
+  "htl_67190be7": {
+    "latitude": 28.200869,
+    "longitude": 84.050716,
+    "address": "159 The Museum Quarter, Pokhara"
+  },
+  "htl_afcb3490": {
+    "latitude": 28.263561,
+    "longitude": 83.994981,
+    "address": "157 The Museum Quarter, Pokhara"
+  },
+  "htl_c91a804e": {
+    "latitude": 27.521,
+    "longitude": 89.60572,
+    "address": "70 The Beach Road, Thimphu"
+  },
+  "htl_6eff866f": {
+    "latitude": 27.46155,
+    "longitude": 89.568453,
+    "address": "206 The River Ghats, Thimphu"
+  },
+  "htl_81c1c288": {
+    "latitude": 27.430213,
+    "longitude": 89.682164,
+    "address": "108 The Fort Gate, Thimphu"
+  },
+  "htl_d73d2dd8": {
+    "latitude": 27.425016,
+    "longitude": 89.698024,
+    "address": "135 The Old Bazaar, Thimphu"
+  },
+  "htl_25fd9c00": {
+    "latitude": 27.483735,
+    "longitude": 89.69743,
+    "address": "177 The Temple Complex, Thimphu"
+  },
+  "htl_15b1ea5e": {
+    "latitude": 4.209377,
+    "longitude": 73.524589,
+    "address": "18 The Temple Complex, Male"
+  },
+  "htl_2a2ca88d": {
+    "latitude": 4.158279,
+    "longitude": 73.493126,
+    "address": "88 The Old Bazaar, Male"
+  },
+  "htl_98896cce": {
+    "latitude": 4.139356,
+    "longitude": 73.49689,
+    "address": "152 The Railway Station, Male"
+  },
+  "htl_a143dbb9": {
+    "latitude": 4.144149,
+    "longitude": 73.476133,
+    "address": "56 The Temple Complex, Male"
+  },
+  "htl_0cf91d4d": {
+    "latitude": 4.198143,
+    "longitude": 73.488166,
+    "address": "78 The Fort Gate, Male"
+  },
+  "htl_12e2327a": {
+    "latitude": 25.186886,
+    "longitude": 55.274997,
+    "address": "121 The River Ghats, Dubai"
+  },
+  "htl_a26dc64e": {
+    "latitude": 25.145199,
+    "longitude": 55.286279,
+    "address": "209 The Beach Road, Dubai"
+  },
+  "htl_17ac7c07": {
+    "latitude": 25.224942,
+    "longitude": 55.231993,
+    "address": "48 The Beach Road, Dubai"
+  },
+  "htl_f9f0bde3": {
+    "latitude": 25.148907,
+    "longitude": 55.299602,
+    "address": "2 The River Ghats, Dubai"
+  },
+  "htl_abfe8a53": {
+    "latitude": 25.165354,
+    "longitude": 55.279185,
+    "address": "7 The Beach Road, Dubai"
+  },
+  "htl_29faa3d7": {
+    "latitude": 24.4954,
+    "longitude": 54.366875,
+    "address": "54 The Temple Complex, Abu Dhabi"
+  },
+  "htl_19193f4f": {
+    "latitude": 24.516048,
+    "longitude": 54.320041,
+    "address": "165 The Old Bazaar, Abu Dhabi"
+  },
+  "htl_885db404": {
+    "latitude": 24.490889,
+    "longitude": 54.35222,
+    "address": "71 The Lake Promenade, Abu Dhabi"
+  },
+  "htl_58292b84": {
+    "latitude": 24.405379,
+    "longitude": 54.341068,
+    "address": "8 The Fort Gate, Abu Dhabi"
+  },
+  "htl_ace6d341": {
+    "latitude": 24.423693,
+    "longitude": 54.388602,
+    "address": "16 The Railway Station, Abu Dhabi"
+  },
+  "htl_1723889f": {
+    "latitude": 25.229463,
+    "longitude": 51.49769,
+    "address": "90 The Railway Station, Doha"
+  },
+  "htl_94be8798": {
+    "latitude": 25.344683,
+    "longitude": 51.583127,
+    "address": "47 The Railway Station, Doha"
+  },
+  "htl_986e57e9": {
+    "latitude": 25.305401,
+    "longitude": 51.467967,
+    "address": "43 The Museum Quarter, Doha"
+  },
+  "htl_bbafa1bd": {
+    "latitude": 25.255936,
+    "longitude": 51.571783,
+    "address": "140 The Museum Quarter, Doha"
+  },
+  "htl_dabb8548": {
+    "latitude": 25.25058,
+    "longitude": 51.481373,
+    "address": "37 The River Ghats, Doha"
+  },
+  "htl_6ae380cf": {
+    "latitude": 1.380278,
+    "longitude": 103.88208,
+    "address": "185 The Lake Promenade, Singapore"
+  },
+  "htl_521bb81f": {
+    "latitude": 1.390221,
+    "longitude": 103.773361,
+    "address": "2 The Beach Road, Singapore"
+  },
+  "htl_30f184fa": {
+    "latitude": 1.371141,
+    "longitude": 103.798038,
+    "address": "131 The Beach Road, Singapore"
+  },
+  "htl_ef749d59": {
+    "latitude": 1.391611,
+    "longitude": 103.871444,
+    "address": "209 The River Ghats, Singapore"
+  },
+  "htl_488b1796": {
+    "latitude": 1.376706,
+    "longitude": 103.798873,
+    "address": "6 The Old Bazaar, Singapore"
+  },
+  "htl_a0afc350": {
+    "latitude": 13.809931,
+    "longitude": 100.445898,
+    "address": "199 The Old Bazaar, Bangkok"
+  },
+  "htl_c4166776": {
+    "latitude": 13.698454,
+    "longitude": 100.450719,
+    "address": "87 The Museum Quarter, Bangkok"
+  },
+  "htl_ca1c579e": {
+    "latitude": 13.699176,
+    "longitude": 100.463025,
+    "address": "46 The Temple Complex, Bangkok"
+  },
+  "htl_14e2ae81": {
+    "latitude": 13.763216,
+    "longitude": 100.44673,
+    "address": "47 The River Ghats, Bangkok"
+  },
+  "htl_64d03366": {
+    "latitude": 13.771009,
+    "longitude": 100.503027,
+    "address": "135 The Museum Quarter, Bangkok"
+  },
+  "htl_5cf7dd7d": {
+    "latitude": 3.183174,
+    "longitude": 101.631813,
+    "address": "68 The River Ghats, Kuala Lumpur"
+  },
+  "htl_48e9885c": {
+    "latitude": 3.201579,
+    "longitude": 101.684358,
+    "address": "14 The Lake Promenade, Kuala Lumpur"
+  },
+  "htl_f5d9d235": {
+    "latitude": 3.144472,
+    "longitude": 101.697727,
+    "address": "118 The Museum Quarter, Kuala Lumpur"
+  },
+  "htl_c05586df": {
+    "latitude": 3.108893,
+    "longitude": 101.710862,
+    "address": "218 The Railway Station, Kuala Lumpur"
+  },
+  "htl_628ee540": {
+    "latitude": 3.191615,
+    "longitude": 101.748787,
+    "address": "202 The Lake Promenade, Kuala Lumpur"
+  },
+  "htl_fe67eead": {
+    "latitude": -8.46404,
+    "longitude": 115.169663,
+    "address": "176 The Museum Quarter, Bali"
+  },
+  "htl_1fc52e5d": {
+    "latitude": -8.371811,
+    "longitude": 115.205704,
+    "address": "146 The Fort Gate, Bali"
+  },
+  "htl_30408181": {
+    "latitude": -8.410169,
+    "longitude": 115.25152,
+    "address": "207 The Temple Complex, Bali"
+  },
+  "htl_15145914": {
+    "latitude": -8.422624,
+    "longitude": 115.18669,
+    "address": "143 The Museum Quarter, Bali"
+  },
+  "htl_faf784c8": {
+    "latitude": -8.40331,
+    "longitude": 115.158185,
+    "address": "82 The Railway Station, Bali"
+  },
+  "htl_b7ca8001": {
+    "latitude": 34.966631,
+    "longitude": 135.720312,
+    "address": "33 The Museum Quarter, Kyoto"
+  },
+  "htl_647a13b7": {
+    "latitude": 35.06821,
+    "longitude": 135.708494,
+    "address": "186 The River Ghats, Kyoto"
+  },
+  "htl_5ea20ea8": {
+    "latitude": 34.956382,
+    "longitude": 135.734474,
+    "address": "15 The Lake Promenade, Kyoto"
+  },
+  "htl_92768774": {
+    "latitude": 34.994809,
+    "longitude": 135.80779,
+    "address": "129 The Railway Station, Kyoto"
+  },
+  "htl_6583da9d": {
+    "latitude": 35.044476,
+    "longitude": 135.771971,
+    "address": "36 The Railway Station, Kyoto"
+  },
+  "htl_861fb9d1": {
+    "latitude": 47.401372,
+    "longitude": 8.473963,
+    "address": "23 The River Ghats, Zurich"
+  },
+  "htl_36af7bab": {
+    "latitude": 47.350968,
+    "longitude": 8.493052,
+    "address": "90 The Temple Complex, Zurich"
+  },
+  "htl_f73ed585": {
+    "latitude": 47.43351,
+    "longitude": 8.557658,
+    "address": "64 The River Ghats, Zurich"
+  },
+  "htl_daff4ec9": {
+    "latitude": 47.431522,
+    "longitude": 8.626137,
+    "address": "144 The Beach Road, Zurich"
+  },
+  "htl_4a4eea20": {
+    "latitude": 47.412551,
+    "longitude": 8.497033,
+    "address": "83 The Lake Promenade, Zurich"
+  }
+}

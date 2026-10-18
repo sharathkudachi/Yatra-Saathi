@@ -1,0 +1,602 @@
+[
+  {
+    "cityId": "cty_1ced6ede",
+    "name": "Abu Dhabi",
+    "state": null,
+    "countryCode": "AE",
+    "latitude": 24.453884,
+    "longitude": 54.377343,
+    "timezone": "Asia/Dubai",
+    "region": "Middle East"
+  },
+  {
+    "cityId": "cty_b43cdd57",
+    "name": "Agra",
+    "state": "Uttar Pradesh",
+    "countryCode": "IN",
+    "latitude": 27.17667,
+    "longitude": 78.00808,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_cfec17b6",
+    "name": "Ahmedabad",
+    "state": "Gujarat",
+    "countryCode": "IN",
+    "latitude": 23.022505,
+    "longitude": 72.571362,
+    "timezone": "Asia/Kolkata",
+    "region": "West India"
+  },
+  {
+    "cityId": "cty_34bbfdfe",
+    "name": "Alleppey",
+    "state": "Kerala",
+    "countryCode": "IN",
+    "latitude": 9.498067,
+    "longitude": 76.338844,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_0d062a51",
+    "name": "Amritsar",
+    "state": "Punjab",
+    "countryCode": "IN",
+    "latitude": 31.63398,
+    "longitude": 74.872261,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_f29656ff",
+    "name": "Aurangabad",
+    "state": "Maharashtra",
+    "countryCode": "IN",
+    "latitude": 19.876165,
+    "longitude": 75.343314,
+    "timezone": "Asia/Kolkata",
+    "region": "West India"
+  },
+  {
+    "cityId": "cty_36afaa5c",
+    "name": "Bali",
+    "state": null,
+    "countryCode": "ID",
+    "latitude": -8.409518,
+    "longitude": 115.188919,
+    "timezone": "Asia/Makassar",
+    "region": "Southeast Asia"
+  },
+  {
+    "cityId": "cty_a5f16904",
+    "name": "Bangkok",
+    "state": null,
+    "countryCode": "TH",
+    "latitude": 13.756331,
+    "longitude": 100.501765,
+    "timezone": "Asia/Bangkok",
+    "region": "Southeast Asia"
+  },
+  {
+    "cityId": "cty_17b8ef2f",
+    "name": "Bengaluru",
+    "state": "Karnataka",
+    "countryCode": "IN",
+    "latitude": 12.971599,
+    "longitude": 77.594566,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_7be8559f",
+    "name": "Bhubaneswar",
+    "state": "Odisha",
+    "countryCode": "IN",
+    "latitude": 20.296059,
+    "longitude": 85.824539,
+    "timezone": "Asia/Kolkata",
+    "region": "East India"
+  },
+  {
+    "cityId": "cty_caf3c1ee",
+    "name": "Bhuj",
+    "state": "Gujarat",
+    "countryCode": "IN",
+    "latitude": 23.241991,
+    "longitude": 69.666931,
+    "timezone": "Asia/Kolkata",
+    "region": "West India"
+  },
+  {
+    "cityId": "cty_f8b75f8e",
+    "name": "Chennai",
+    "state": "Tamil Nadu",
+    "countryCode": "IN",
+    "latitude": 13.08268,
+    "longitude": 80.270718,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_a50bc5dd",
+    "name": "Colombo",
+    "state": null,
+    "countryCode": "LK",
+    "latitude": 6.927079,
+    "longitude": 79.861244,
+    "timezone": "Asia/Colombo",
+    "region": "South Asia"
+  },
+  {
+    "cityId": "cty_c43cfa94",
+    "name": "Darjeeling",
+    "state": "West Bengal",
+    "countryCode": "IN",
+    "latitude": 27.036007,
+    "longitude": 88.262675,
+    "timezone": "Asia/Kolkata",
+    "region": "East India"
+  },
+  {
+    "cityId": "cty_6320eea9",
+    "name": "Doha",
+    "state": null,
+    "countryCode": "QA",
+    "latitude": 25.285447,
+    "longitude": 51.53104,
+    "timezone": "Asia/Qatar",
+    "region": "Middle East"
+  },
+  {
+    "cityId": "cty_7b89639e",
+    "name": "Dubai",
+    "state": null,
+    "countryCode": "AE",
+    "latitude": 25.204849,
+    "longitude": 55.270783,
+    "timezone": "Asia/Dubai",
+    "region": "Middle East"
+  },
+  {
+    "cityId": "cty_ccb4fb74",
+    "name": "Gangtok",
+    "state": "Sikkim",
+    "countryCode": "IN",
+    "latitude": 27.338936,
+    "longitude": 88.606507,
+    "timezone": "Asia/Kolkata",
+    "region": "North East India"
+  },
+  {
+    "cityId": "cty_a97c33ad",
+    "name": "Gokarna",
+    "state": "Karnataka",
+    "countryCode": "IN",
+    "latitude": 14.5499,
+    "longitude": 74.3172,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_cf1c6ac5",
+    "name": "Guwahati",
+    "state": "Assam",
+    "countryCode": "IN",
+    "latitude": 26.144518,
+    "longitude": 91.736237,
+    "timezone": "Asia/Kolkata",
+    "region": "North East India"
+  },
+  {
+    "cityId": "cty_bbb31d67",
+    "name": "Hampi",
+    "state": "Karnataka",
+    "countryCode": "IN",
+    "latitude": 15.33505,
+    "longitude": 76.46006,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_718f03c7",
+    "name": "Hyderabad",
+    "state": "Telangana",
+    "countryCode": "IN",
+    "latitude": 17.385044,
+    "longitude": 78.486671,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_c07454f1",
+    "name": "Jaipur",
+    "state": "Rajasthan",
+    "countryCode": "IN",
+    "latitude": 26.912434,
+    "longitude": 75.78727,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_10cbee86",
+    "name": "Jaisalmer",
+    "state": "Rajasthan",
+    "countryCode": "IN",
+    "latitude": 26.91552,
+    "longitude": 70.90834,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_076e8e86",
+    "name": "Jodhpur",
+    "state": "Rajasthan",
+    "countryCode": "IN",
+    "latitude": 26.238947,
+    "longitude": 73.024309,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_009c9fd2",
+    "name": "Kandy",
+    "state": null,
+    "countryCode": "LK",
+    "latitude": 7.290572,
+    "longitude": 80.633728,
+    "timezone": "Asia/Colombo",
+    "region": "South Asia"
+  },
+  {
+    "cityId": "cty_c0f2d9de",
+    "name": "Kathmandu",
+    "state": null,
+    "countryCode": "NP",
+    "latitude": 27.717245,
+    "longitude": 85.32396,
+    "timezone": "Asia/Kathmandu",
+    "region": "South Asia"
+  },
+  {
+    "cityId": "cty_8b6b1652",
+    "name": "Kochi",
+    "state": "Kerala",
+    "countryCode": "IN",
+    "latitude": 9.931233,
+    "longitude": 76.267303,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_ab50efee",
+    "name": "Kolkata",
+    "state": "West Bengal",
+    "countryCode": "IN",
+    "latitude": 22.572646,
+    "longitude": 88.363895,
+    "timezone": "Asia/Kolkata",
+    "region": "East India"
+  },
+  {
+    "cityId": "cty_c9f34ba7",
+    "name": "Kuala Lumpur",
+    "state": null,
+    "countryCode": "MY",
+    "latitude": 3.139003,
+    "longitude": 101.686855,
+    "timezone": "Asia/Kuala_Lumpur",
+    "region": "Southeast Asia"
+  },
+  {
+    "cityId": "cty_51a149b7",
+    "name": "Kyoto",
+    "state": null,
+    "countryCode": "JP",
+    "latitude": 35.011636,
+    "longitude": 135.768029,
+    "timezone": "Asia/Tokyo",
+    "region": "East Asia"
+  },
+  {
+    "cityId": "cty_aa759717",
+    "name": "Leh",
+    "state": "Ladakh",
+    "countryCode": "IN",
+    "latitude": 34.152588,
+    "longitude": 77.577049,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_5698a7ab",
+    "name": "Lucknow",
+    "state": "Uttar Pradesh",
+    "countryCode": "IN",
+    "latitude": 26.846694,
+    "longitude": 80.946166,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_3503e391",
+    "name": "Madurai",
+    "state": "Tamil Nadu",
+    "countryCode": "IN",
+    "latitude": 9.925201,
+    "longitude": 78.119775,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_9aa02925",
+    "name": "Male",
+    "state": null,
+    "countryCode": "MV",
+    "latitude": 4.175496,
+    "longitude": 73.509347,
+    "timezone": "Indian/Maldives",
+    "region": "South Asia"
+  },
+  {
+    "cityId": "cty_9327d518",
+    "name": "Manali",
+    "state": "Himachal Pradesh",
+    "countryCode": "IN",
+    "latitude": 32.239337,
+    "longitude": 77.188707,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_95e7c8ca",
+    "name": "Mumbai",
+    "state": "Maharashtra",
+    "countryCode": "IN",
+    "latitude": 19.075984,
+    "longitude": 72.877656,
+    "timezone": "Asia/Kolkata",
+    "region": "West India"
+  },
+  {
+    "cityId": "cty_d401ef6b",
+    "name": "Munnar",
+    "state": "Kerala",
+    "countryCode": "IN",
+    "latitude": 10.08916,
+    "longitude": 77.05957,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_8fc1539e",
+    "name": "Mysuru",
+    "state": "Karnataka",
+    "countryCode": "IN",
+    "latitude": 12.29581,
+    "longitude": 76.639381,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_0d9ab6ff",
+    "name": "Nainital",
+    "state": "Uttarakhand",
+    "countryCode": "IN",
+    "latitude": 29.38,
+    "longitude": 79.4634,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_0b92e2e7",
+    "name": "New Delhi",
+    "state": "Delhi",
+    "countryCode": "IN",
+    "latitude": 28.613939,
+    "longitude": 77.209021,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_7fc82336",
+    "name": "Ooty",
+    "state": "Tamil Nadu",
+    "countryCode": "IN",
+    "latitude": 11.41061,
+    "longitude": 76.695007,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_43d0a650",
+    "name": "Panaji",
+    "state": "Goa",
+    "countryCode": "IN",
+    "latitude": 15.49094,
+    "longitude": 73.827827,
+    "timezone": "Asia/Kolkata",
+    "region": "West India"
+  },
+  {
+    "cityId": "cty_95d040d8",
+    "name": "Pokhara",
+    "state": null,
+    "countryCode": "NP",
+    "latitude": 28.209583,
+    "longitude": 83.985567,
+    "timezone": "Asia/Kathmandu",
+    "region": "South Asia"
+  },
+  {
+    "cityId": "cty_f288c6a0",
+    "name": "Pondicherry",
+    "state": "Puducherry",
+    "countryCode": "IN",
+    "latitude": 11.916419,
+    "longitude": 79.812555,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_621f4a84",
+    "name": "Pune",
+    "state": "Maharashtra",
+    "countryCode": "IN",
+    "latitude": 18.52043,
+    "longitude": 73.856744,
+    "timezone": "Asia/Kolkata",
+    "region": "West India"
+  },
+  {
+    "cityId": "cty_b6ccbb3b",
+    "name": "Puri",
+    "state": "Odisha",
+    "countryCode": "IN",
+    "latitude": 19.8134,
+    "longitude": 85.8312,
+    "timezone": "Asia/Kolkata",
+    "region": "East India"
+  },
+  {
+    "cityId": "cty_d35a9652",
+    "name": "Rishikesh",
+    "state": "Uttarakhand",
+    "countryCode": "IN",
+    "latitude": 30.08667,
+    "longitude": 78.26722,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_590d4b7b",
+    "name": "Shillong",
+    "state": "Meghalaya",
+    "countryCode": "IN",
+    "latitude": 25.578773,
+    "longitude": 91.893254,
+    "timezone": "Asia/Kolkata",
+    "region": "North East India"
+  },
+  {
+    "cityId": "cty_32e8e65c",
+    "name": "Shimla",
+    "state": "Himachal Pradesh",
+    "countryCode": "IN",
+    "latitude": 31.104814,
+    "longitude": 77.173073,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_905fd8a1",
+    "name": "Singapore",
+    "state": null,
+    "countryCode": "SG",
+    "latitude": 1.352083,
+    "longitude": 103.819836,
+    "timezone": "Asia/Singapore",
+    "region": "Southeast Asia"
+  },
+  {
+    "cityId": "cty_828a7777",
+    "name": "Srinagar",
+    "state": "Jammu and Kashmir",
+    "countryCode": "IN",
+    "latitude": 34.083656,
+    "longitude": 74.797371,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_7f673457",
+    "name": "Thanjavur",
+    "state": "Tamil Nadu",
+    "countryCode": "IN",
+    "latitude": 10.786998,
+    "longitude": 79.137827,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_79cbc59b",
+    "name": "Thimphu",
+    "state": null,
+    "countryCode": "BT",
+    "latitude": 27.472792,
+    "longitude": 89.639286,
+    "timezone": "Asia/Thimphu",
+    "region": "South Asia"
+  },
+  {
+    "cityId": "cty_67ee7f6f",
+    "name": "Thiruvananthapuram",
+    "state": "Kerala",
+    "countryCode": "IN",
+    "latitude": 8.524139,
+    "longitude": 76.936638,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_d4f5e3a5",
+    "name": "Tirupati",
+    "state": "Andhra Pradesh",
+    "countryCode": "IN",
+    "latitude": 13.6287,
+    "longitude": 79.4192,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_5d572c8a",
+    "name": "Udaipur",
+    "state": "Rajasthan",
+    "countryCode": "IN",
+    "latitude": 24.585445,
+    "longitude": 73.712479,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_c97e6cd5",
+    "name": "Varanasi",
+    "state": "Uttar Pradesh",
+    "countryCode": "IN",
+    "latitude": 25.317645,
+    "longitude": 82.973914,
+    "timezone": "Asia/Kolkata",
+    "region": "North India"
+  },
+  {
+    "cityId": "cty_7cb0b529",
+    "name": "Visakhapatnam",
+    "state": "Andhra Pradesh",
+    "countryCode": "IN",
+    "latitude": 17.686816,
+    "longitude": 83.218482,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_541018a9",
+    "name": "Wayanad",
+    "state": "Kerala",
+    "countryCode": "IN",
+    "latitude": 11.68538,
+    "longitude": 76.1319,
+    "timezone": "Asia/Kolkata",
+    "region": "South India"
+  },
+  {
+    "cityId": "cty_0b7f5985",
+    "name": "Zurich",
+    "state": null,
+    "countryCode": "CH",
+    "latitude": 47.376887,
+    "longitude": 8.541694,
+    "timezone": "Europe/Zurich",
+    "region": "Europe"
+  }
+]

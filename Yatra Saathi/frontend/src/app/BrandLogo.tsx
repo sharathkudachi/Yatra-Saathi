@@ -1,0 +1,58 @@
+import React from 'react'
+
+interface BrandLogoProps {
+  showTagline?: boolean
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+}
+
+export const BrandLogo: React.FC<BrandLogoProps> = ({
+  showTagline = false,
+  size = 'md',
+  className = '',
+}) => {
+  const iconDimensions = size === 'sm' ? 28 : size === 'lg' ? 44 : 36
+  const textScale = size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-lg' : 'text-md'
+
+  return (
+    <div className={`brand-logo-container ${size} ${className}`}>
+      <div className="brand-logo-emblem" style={{ width: iconDimensions, height: iconDimensions }}>
+        <svg
+          viewBox="0 0 525 468"
+          width="100%"
+          height="100%"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <linearGradient id="brandLogoSunGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#FDAE44" />
+              <stop offset="100%" stopColor="#F47D27" />
+            </linearGradient>
+          </defs>
+          {/* Sun Disk */}
+          <circle cx="262" cy="224" r="58" fill="url(#brandLogoSunGrad)" />
+          {/* Navy Elements (Compass ring, wings, mountains, left path) */}
+          <path d="M 300,386 L 295,377 L 279,365 L 257,355 L 223,345 L 205,338 L 198,331 L 198,326 L 206,317 L 210,315 L 202,318 L 192,324 L 186,332 L 186,338 L 191,345 L 200,350 L 214,355 L 226,361 L 236,370 L 238,374 L 238,382 L 233,390 L 220,400 L 179,421 L 119,447 L 79,462 L 205,462 L 229,452 L 265,434 L 288,418 L 296,409 L 300,401 L 301,397 Z M 3,269 L 35,279 L 67,287 L 69,289 L 70,299 L 77,323 L 89,348 L 103,368 L 111,376 L 120,380 L 129,381 L 116,367 L 109,355 L 108,351 L 109,339 L 102,324 L 95,299 L 93,286 L 93,266 L 92,263 L 87,258 L 74,253 L 63,253 Z M 224,319 L 227,321 L 265,323 L 298,327 L 329,333 L 356,341 L 380,352 L 391,360 L 401,371 L 407,382 L 422,367 L 437,345 L 447,323 L 452,307 L 455,289 L 457,287 L 489,279 L 522,269 L 511,267 L 507,265 L 456,252 L 445,254 L 434,259 L 431,263 L 430,291 L 425,313 L 420,328 L 408,352 L 404,353 L 397,349 L 395,346 L 401,337 L 409,319 L 415,297 L 416,286 L 406,280 L 380,259 L 371,261 L 344,240 L 328,251 L 314,263 L 310,263 L 306,261 L 301,262 L 270,289 L 278,289 L 279,288 L 339,289 L 382,295 L 395,298 L 398,300 L 392,301 L 363,298 L 316,298 L 293,300 L 264,304 L 242,309 L 227,315 Z M 343,249 L 341,257 L 338,262 L 338,264 L 340,266 L 336,268 L 332,272 L 331,275 L 328,275 L 328,271 L 320,271 L 308,277 L 308,274 L 331,255 Z M 258,290 L 225,262 L 222,261 L 214,264 L 210,264 L 192,249 L 179,240 L 150,262 L 143,259 L 118,278 L 107,284 L 109,300 L 112,312 L 118,328 L 127,320 L 140,313 L 172,302 L 199,296 L 225,292 Z M 179,249 L 178,258 L 175,262 L 175,265 L 179,273 L 174,270 L 171,270 L 166,278 L 163,278 L 164,270 L 156,272 L 141,279 L 141,276 L 146,273 L 158,262 L 171,252 Z M 370,156 L 366,153 L 357,160 L 349,168 L 341,181 L 355,173 Z M 156,154 L 154,157 L 164,169 L 171,175 L 182,181 L 178,176 L 173,166 L 159,153 Z M 228,77 L 196,85 L 169,97 L 157,104 L 139,117 L 114,141 L 97,164 L 84,188 L 73,219 L 69,244 L 95,238 L 98,223 L 105,203 L 117,180 L 131,161 L 152,140 L 174,124 L 198,112 L 221,105 Z M 291,76 L 298,104 L 326,112 L 341,119 L 360,131 L 376,144 L 398,168 L 412,190 L 422,212 L 429,238 L 455,245 L 450,216 L 441,190 L 428,165 L 417,149 L 405,135 L 383,115 L 359,99 L 334,87 L 316,81 Z" fill="#052C52" fillRule="evenodd" />
+          {/* Snow Peaks */}
+          <path d="M 341,250 L 323,263 L 311,274 L 321,269 L 330,270 L 330,273 L 337,266 L 336,262 L 339,257 Z M 334,258 L 334,265 L 330,268 L 323,267 Z M 177,250 L 159,263 L 144,276 L 163,268 L 166,269 L 165,276 L 171,268 L 174,268 L 179,271 L 173,265 L 173,262 L 176,258 Z M 172,259 L 171,267 L 160,266 Z M 374,257 L 370,255 L 347,237 L 341,237 L 324,249 L 312,259 L 300,258 L 298,259 L 267,286 L 267,289 L 271,287 L 301,260 L 305,259 L 310,261 L 314,261 L 332,246 L 345,238 L 371,259 Z M 125,267 L 125,271 L 141,258 L 145,258 L 150,260 L 179,238 L 196,250 L 211,263 L 223,259 L 225,260 L 254,285 L 260,289 L 260,286 L 228,259 L 226,258 L 219,258 L 212,260 L 195,246 L 182,237 L 176,237 L 163,246 L 151,256 L 148,257 L 140,256 Z" fill="#FFFFFF" fillRule="evenodd" />
+          {/* Saffron Orange Elements (Top needle, right path) */}
+          <path d="M 215,325 L 218,329 L 223,332 L 263,344 L 281,351 L 295,358 L 304,364 L 315,374 L 320,381 L 323,389 L 323,401 L 321,407 L 316,416 L 309,424 L 300,432 L 284,443 L 257,457 L 244,462 L 289,462 L 329,454 L 351,446 L 371,434 L 381,424 L 385,418 L 388,408 L 388,399 L 386,392 L 380,382 L 374,376 L 360,366 L 342,357 L 314,347 L 271,337 L 265,337 L 253,334 L 228,331 L 220,329 Z M 210,250 L 214,252 L 220,250 L 227,250 L 235,256 L 236,254 L 238,254 L 242,250 Z M 262,1 L 261,8 L 254,30 L 235,103 L 239,103 L 245,106 L 253,114 L 255,119 L 269,119 L 272,113 L 280,105 L 284,103 L 290,103 L 282,73 L 281,65 Z" fill="#F47D27" fillRule="evenodd" />
+        </svg>
+      </div>
+
+      <div className={`brand-logo-text ${textScale}`}>
+        <div className="brand-title">
+          <span className="brand-name-main">Yatra</span>
+          <span className="brand-name-accent">Saathi</span>
+        </div>
+        {showTagline && (
+          <span className="brand-tagline">YOUR TRAVEL COMPANION</span>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default BrandLogo
