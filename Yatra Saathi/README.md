@@ -237,7 +237,7 @@ erDiagram
 **① Install**
 
 ```bash
-git clone https://github.com/kognivera-org/kv-hack2026-tech4ce.git && cd kv-hack2026-tech4ce
+git clone https://github.com/sharathkudachi/Yatra-Saathi.git && cd "Yatra Saathi"
 python3.13 -m venv backend/.venv
 backend/.venv/bin/pip install -r backend/requirements.txt -r ai/requirements.txt   # one venv: backend, agent, tests
 (cd frontend && npm install)

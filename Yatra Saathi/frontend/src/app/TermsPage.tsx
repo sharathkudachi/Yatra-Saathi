@@ -185,11 +185,14 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
           </section>
 
           <section className="legal-section">
-            <h2>8. Owner Review &amp; Governing Law</h2>
+            <h2>8. Project Maintainer &amp; Contact Information</h2>
             <div className="legal-contact-box">
-              <p><strong>Operating Entity:</strong> [Legal Entity Name to be specified prior to production launch]</p>
-              <p><strong>Jurisdiction:</strong> [Applicable state/national jurisdiction to be designated prior to launch]</p>
-              <p><strong>Legal Contact:</strong> <code>legal@example.com</code> [Placeholder — owner review required]</p>
+              <p><strong>Project:</strong> Yatra Saathi &mdash; Your Travel Companion</p>
+              <p><strong>Developer &amp; Maintainer:</strong> Sharath Kudachi</p>
+              <p><strong>Developer Profile:</strong> <a href="https://github.com/sharathkudachi" target="_blank" rel="noopener noreferrer">https://github.com/sharathkudachi</a></p>
+              <p><strong>Source Repository:</strong> <a href="https://github.com/sharathkudachi/Yatra-Saathi" target="_blank" rel="noopener noreferrer">https://github.com/sharathkudachi/Yatra-Saathi</a></p>
+              <p><strong>Contact Email:</strong> <a href="mailto:sharathkudachi30@gmail.com">sharathkudachi30@gmail.com</a></p>
+              <p><strong>Jurisdiction &amp; Terms:</strong> Governed in accordance with applicable laws of India. Operated as an open-source demonstration and portfolio platform.</p>
             </div>
           </section>
         </div>

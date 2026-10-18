@@ -3,7 +3,7 @@
 **Date:** 2026-10-17  
 **Product:** Yatra AI Travel Concierge  
 **Evaluation Target:** Independent Release Verification & Production Readiness Audit  
-**Canonical Application Root:** `kv-hack2026-tech4ce/`  
+**Canonical Application Root:** `Yatra Saathi/`  
 **Final Status:** **READY FOR PRODUCTION REVIEW (PENDING OWNER ACTIONS FOR EXTERNAL DEPLOYMENT)**
 
 ---
@@ -36,13 +36,13 @@ All tests were independently executed during this verification cycle. Test comma
 
 | Test Category | Exact Command Executed | Exit Code | Duration | Results / Verified Metric |
 |---|---|:---:|:---:|---|
-| **Backend Full Pytest Suite** | `.\backend\.venv\Scripts\python.exe -m pytest -q tests --tb=short` (in `kv-hack2026-tech4ce`) | **0** | 172.08s | **582 passed, 1 skipped, 176 subtests passed** (unit, integration, safety, e2e, AI). |
-| **Frontend Unit & Timezone Tests** | `npm test` (in `kv-hack2026-tech4ce/frontend`) | **0** | 1.30s | **105 passed, 0 failed** across UTC, America/Los_Angeles, Pacific/Kiritimati, Europe/London, Asia/Kolkata. |
-| **Frontend Production Build** | `npm run build` (`tsc -b && vite build`) (in `kv-hack2026-tech4ce/frontend`) | **0** | 1.32s | **0 TypeScript errors**, 1934 modules transformed, optimized production bundle generated. |
-| **Browser Viewport & Overflow QA** | `node test_mobile_viewports.mjs` (in `kv-hack2026-tech4ce`) | **0** | 18.2s | **100% PASS** on 1920x1080, 1366x768, 1024x768, 390x844, 360x800; zero horizontal scroll; mobile menu toggle verified. |
-| **Browser Auth & Security QA** | `node run_auth_browser_qa.mjs` (in `kv-hack2026-tech4ce`) | **0** | 48.7s | **21/21 PASS** (demo login, registration, password mismatch, weak password rejection, 409 duplicate rejection, generic refusal, guest mode). |
-| **Browser Travel Intelligence QA** | `node browser_qa_travel_intelligence_pass2.mjs` (in `kv-hack2026-tech4ce`) | **0** | 31.4s | **100% PASS** (guest auto-auth refusal, 27 map pins, flight arcs, day filters, activity focus, honest flight notice, booking review modal, confirmation `YTR-DEMO-A87AF9BB`). |
-| **Original Database Fingerprint** | `Get-FileHash -Algorithm SHA256 .\kv-hack2026-tech4ce\data\original\APS-01.db` | **0** | 0.8s | Hash matched `ECC58821CCB7F7D19A23BAC157E95BA84521238B40BA52AD568D7932675CAE0A`. |
+| **Backend Full Pytest Suite** | `.\backend\.venv\Scripts\python.exe -m pytest -q tests --tb=short` (in `Yatra Saathi`) | **0** | 172.08s | **582 passed, 1 skipped, 176 subtests passed** (unit, integration, safety, e2e, AI). |
+| **Frontend Unit & Timezone Tests** | `npm test` (in `Yatra Saathi/frontend`) | **0** | 1.30s | **105 passed, 0 failed** across UTC, America/Los_Angeles, Pacific/Kiritimati, Europe/London, Asia/Kolkata. |
+| **Frontend Production Build** | `npm run build` (`tsc -b && vite build`) (in `Yatra Saathi/frontend`) | **0** | 1.32s | **0 TypeScript errors**, 1934 modules transformed, optimized production bundle generated. |
+| **Browser Viewport & Overflow QA** | `node test_mobile_viewports.mjs` (in `Yatra Saathi`) | **0** | 18.2s | **100% PASS** on 1920x1080, 1366x768, 1024x768, 390x844, 360x800; zero horizontal scroll; mobile menu toggle verified. |
+| **Browser Auth & Security QA** | `node run_auth_browser_qa.mjs` (in `Yatra Saathi`) | **0** | 48.7s | **21/21 PASS** (demo login, registration, password mismatch, weak password rejection, 409 duplicate rejection, generic refusal, guest mode). |
+| **Browser Travel Intelligence QA** | `node browser_qa_travel_intelligence_pass2.mjs` (in `Yatra Saathi`) | **0** | 31.4s | **100% PASS** (guest auto-auth refusal, 27 map pins, flight arcs, day filters, activity focus, honest flight notice, booking review modal, confirmation `YTR-DEMO-A87AF9BB`). |
+| **Original Database Fingerprint** | `Get-FileHash -Algorithm SHA256 .\Yatra Saathi\data\original\APS-01.db` | **0** | 0.8s | Hash matched `ECC58821CCB7F7D19A23BAC157E95BA84521238B40BA52AD568D7932675CAE0A`. |
 | **Working Database Integrity** | SQLite `PRAGMA integrity_check`, `foreign_key_check`, `user_version` | **0** | 0.5s | Integrity: `ok`, Foreign key check: `[]` (0 violations), User version: `7`. |
 
 ---
@@ -141,13 +141,13 @@ To achieve public external production launch, the following two items must be co
 - [ ] Set `VITE_API_BASE_URL` in frontend build environment to point to the production API origin.
 
 ### Action Item 2: Legal Entity & Contact Details Approval
-- [ ] In `kv-hack2026-tech4ce/frontend/src/app/PrivacyPolicyPage.tsx` (lines 209-211), replace placeholders:
+- [ ] In `Yatra Saathi/frontend/src/app/PrivacyPolicyPage.tsx` (lines 209-211), replace placeholders:
   - Operating Entity: Replace `[Legal Entity Name to be specified prior to production launch]` with registered business entity.
-  - Privacy Contact: Replace `privacy@example.com` with official privacy email.
+  - Privacy Contact: Replace `sharathkudachi30@gmail.com` with official privacy email.
   - Physical Address: Replace `[Registered business address to be specified prior to production launch]` with registered office.
-- [ ] In `kv-hack2026-tech4ce/frontend/src/app/TermsPage.tsx` (lines 195-196), replace placeholders:
+- [ ] In `Yatra Saathi/frontend/src/app/TermsPage.tsx` (lines 195-196), replace placeholders:
   - Jurisdiction: Replace `[Applicable state/national jurisdiction to be designated prior to launch]`.
-  - Legal Contact: Replace `legal@example.com` with official legal email.
+  - Legal Contact: Replace `sharathkudachi30@gmail.com` with official legal email.
 
 ---
 
@@ -159,7 +159,7 @@ To achieve public external production launch, the following two items must be co
 | **2. Original Database Integrity** | **PASS** | Original dataset `data/original/APS-01.db` SHA-256 is `ecc58821ccb7f7d19a23bac157e95ba84521238b40ba52ad568d7932675cae0a` (100% matched, read-only). |
 | **3. Persistent Working Database Architecture** | **PASS** | `scripts/init_production_db.py` created and tested. Safely initializes fresh working copy on first start, applies migrations 1-7, and preserves user data on subsequent deploys. |
 | **4. Cloud Storage Persistence Constraints** | **PASS (Documented)** | Verified that Render Free tier has ephemeral storage. Documented that durable persistence requires a Render Starter instance ($7/mo) with Persistent Disk ($0.25/mo) mounted at `/var/data`. |
-| **5. Frontend Vercel SPA Configuration** | **PASS** | `kv-hack2026-tech4ce/frontend/vercel.json` created with SPA rewrites (`/(.*) -> /index.html`) and security headers. `VITE_API_BASE_URL` made configurable. |
+| **5. Frontend Vercel SPA Configuration** | **PASS** | `Yatra Saathi/frontend/vercel.json` created with SPA rewrites (`/(.*) -> /index.html`) and security headers. `VITE_API_BASE_URL` made configurable. |
 | **6. Backend Render Configuration** | **PASS** | `backend/scripts/run_production.py` created to bind to `0.0.0.0:$PORT` dynamically and run pre-flight database migrations. |
 | **7. AI Agent Render Configuration** | **PASS** | `ai/run_production.py` created to bind to `0.0.0.0:$PORT`. Authenticated via `X-Service-Key` header (`AGENT_SERVICE_KEY`). |
 | **8. Secret Protection & Environment Templates** | **PASS** | Sanitized production templates created: `backend/.env.backend.production.example`, `ai/.env.agent.production.example`, `frontend/.env.production.example`. Zero secrets exposed in git. |

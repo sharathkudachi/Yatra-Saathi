@@ -26,7 +26,7 @@ logger = logging.getLogger("yatra.emergency.geocoding")
 
 OSM_ATTRIBUTION = "Data © OpenStreetMap contributors, ODbL 1.0"
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
-DEFAULT_USER_AGENT = "Yatra-Travel-Concierge-EmergencySOS/1.0 (https://github.com/kv-hack2026/yatra; emergency-assistance@yatra.local)"
+DEFAULT_USER_AGENT = "Yatra-Saathi-EmergencySOS/1.0 (https://github.com/sharathkudachi/Yatra-Saathi; sharathkudachi30@gmail.com)"
 
 # In-memory query cache: query -> (timestamp, GeocodeSearchResponse)
 _CACHE: Dict[str, Tuple[float, GeocodeSearchResponse]] = {}

@@ -197,14 +197,17 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
           </section>
 
           <section className="legal-section">
-            <h2>7. Owner Review &amp; Contact Information</h2>
+            <h2>7. Project Maintainer &amp; Contact Information</h2>
             <p>
-              For privacy inquiries, data deletion requests, or questions regarding this policy, contact our privacy administration:
+              For privacy inquiries, data deletion requests, or questions regarding this policy, contact the project maintainer:
             </p>
             <div className="legal-contact-box">
-              <p><strong>Operating Entity:</strong> [Legal Entity Name to be specified prior to production launch]</p>
-              <p><strong>Privacy Contact:</strong> <code>privacy@example.com</code> [Placeholder — owner review required]</p>
-              <p><strong>Physical Address:</strong> [Registered business address to be specified prior to production launch]</p>
+              <p><strong>Project:</strong> Yatra Saathi &mdash; Your Travel Companion</p>
+              <p><strong>Developer &amp; Maintainer:</strong> Sharath Kudachi</p>
+              <p><strong>Developer Profile:</strong> <a href="https://github.com/sharathkudachi" target="_blank" rel="noopener noreferrer">https://github.com/sharathkudachi</a></p>
+              <p><strong>Source Repository:</strong> <a href="https://github.com/sharathkudachi/Yatra-Saathi" target="_blank" rel="noopener noreferrer">https://github.com/sharathkudachi/Yatra-Saathi</a></p>
+              <p><strong>Contact Email:</strong> <a href="mailto:sharathkudachi30@gmail.com">sharathkudachi30@gmail.com</a></p>
+              <p><strong>Operating Notice:</strong> Currently operated as an open-source demonstration and portfolio platform. Formal registered commercial corporate entity and physical office address details will be designated upon commercial incorporation.</p>
             </div>
           </section>
         </div>

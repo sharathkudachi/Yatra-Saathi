@@ -2,7 +2,7 @@
 ## GitHub + Vercel (Frontend) + Render (Backend & AI Service)
 
 **Target Topology:** Multi-cloud decoupled deployment using platform subdomains (no custom domain purchase required).  
-**Canonical Application Root:** `kv-hack2026-tech4ce/`  
+**Canonical Application Root:** `Yatra Saathi/`  
 **Date:** 2026-10-17  
 
 ---
@@ -54,6 +54,45 @@
 - **Render Private Services (Internal DNS):** Available on Render Starter plans ($7/month).
 - **Free-Tier Safe Alternative:** Deploy the AI agent as a **Public Web Service** on the Free plan (`https://yatra-ai.onrender.com`), protected by the existing `X-Service-Key` header authentication (`AGENT_SERVICE_KEY`). The service rejects all unauthenticated external traffic with HTTP 401.
 
+
+---
+
+## 2.4 Free Persistent Database Setup (Neon Serverless PostgreSQL)
+
+Render's free tier web services have ephemeral disks (they reset on restart/spin-down). To achieve **100% free, permanent database persistence** without paying for a Render Starter plan or disk:
+
+### STEP A: Create a Free Neon PostgreSQL Database
+1. Go to **[https://neon.tech](https://neon.tech)** and sign up for the **Free Plan** (no credit card required).
+2. Click **Create Project**:
+   - **Project Name:** `yatra-saathi`
+   - **Postgres Version:** `16` (or latest)
+   - **Region:** Choose the region closest to your Render service (e.g., `US East (Ohio)` or `Frankfurt`).
+3. Under the **Dashboard** -> **Connection Details**:
+   - Select **Pooled connection** (recommended for serverless/free apps) or standard connection.
+   - Copy the connection string. It has this format:
+     ```
+     postgresql://neondb_owner:YOUR_PASSWORD@ep-sample-123456-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require
+     ```
+
+### STEP B: Configure Backend on Render
+1. In your **Render Dashboard** -> Go to your `yatra-backend` Web Service.
+2. Navigate to **Environment Variables** -> Click **Add Environment Variable**:
+   - **Key:** `DATABASE_URL`
+   - **Value:** *(Paste your Neon connection string)*
+3. When the backend starts up on Render, `run_production.py` will:
+   - Detect `DATABASE_URL`.
+   - Idempotently apply all PostgreSQL schemas, indexes, and triggers via `init_postgres_schema()`.
+   - Seed the initial demo user `usr_demo0001`.
+   - Validate connectivity without printing your password or full connection string to logs.
+
+### STEP C: (Optional) Seed Reference Catalog into PostgreSQL
+If you want the flight, hotel, airport, and city catalog data loaded directly into your remote Neon database:
+1. Run the safe, audited catalog seeder from your local machine:
+   ```bash
+   $env:DATABASE_URL="your-neon-connection-string"
+   python -m scripts.seed_postgres_catalog
+   ```
+   *Note: This script transfers only the 11 public catalog tables. It explicitly ignores and never transfers any private user, booking, or session data.*
 ---
 
 ## 3. Step-by-Step Deployment Procedure
@@ -72,7 +111,7 @@
    git add .
    git commit -m "chore: prepare repository for Vercel and Render deployment"
    git branch -M main
-   git remote add origin https://github.com/<YOUR_GITHUB_USER>/yatra-travel-concierge.git
+   git remote add origin https://github.com/sharathkudachi/Yatra-Saathi.git
    git push -u origin main
    ```
 
@@ -86,7 +125,7 @@
 4. Configure service details:
    - **Name:** `yatra-ai`
    - **Region:** Choose closest region to users (e.g. `Frankfurt` or `Oregon`).
-   - **Root Directory:** `kv-hack2026-tech4ce/ai`
+   - **Root Directory:** `Yatra Saathi/ai`
    - **Environment:** `Python 3`
    - **Build Command:** `pip install -r requirements.txt`
    - **Start Command:** `python run_production.py` *(or `uvicorn service:app --host 0.0.0.0 --port $PORT`)*
@@ -111,7 +150,7 @@
 3. Configure service details:
    - **Name:** `yatra-backend`
    - **Region:** Same region as AI agent (e.g. `Frankfurt`).
-   - **Root Directory:** `kv-hack2026-tech4ce/backend`
+   - **Root Directory:** `Yatra Saathi/backend`
    - **Environment:** `Python 3`
    - **Build Command:** `pip install -r requirements.txt`
    - **Start Command:** `python -m scripts.run_production`
@@ -126,9 +165,9 @@
 5. **Add Environment Variables:**
    | Variable | Value (Description) |
    |---|---|
-   | `APS_DB_ORIGINAL_PATH` | `/opt/render/project/src/kv-hack2026-tech4ce/data/original/APS-01.db` |
+   | `APS_DB_ORIGINAL_PATH` | `/opt/render/project/src/Yatra Saathi/data/original/APS-01.db` |
    | `APS_DB_ORIGINAL_SHA256` | `ecc58821ccb7f7d19a23bac157e95ba84521238b40ba52ad568d7932675cae0a` |
-   | `APS_DB_PATH` | `/var/data/aps01_working.db` *(or `/opt/render/project/src/kv-hack2026-tech4ce/backend/var/aps01_working.db` if free tier)* |
+   | `APS_DB_PATH` | `/var/data/aps01_working.db` *(or `/opt/render/project/src/Yatra Saathi/backend/var/aps01_working.db` if free tier)* |
    | `BOOKING_MODE` | `mock` |
    | `TAX_RATE_BP` | `1200` |
    | `REPLAN_LIMIT` | `3` |
@@ -149,11 +188,11 @@
 
 1. Log into [Vercel](https://vercel.com).
 2. Click **Add New...** -> **Project**.
-3. Import your GitHub repository `yatra-travel-concierge`.
+3. Import your GitHub repository `Yatra-Saathi`.
 4. Configure project settings:
    - **Project Name:** `yatra-frontend`
    - **Framework Preset:** `Vite`
-   - **Root Directory:** Click Edit -> Select `kv-hack2026-tech4ce/frontend`
+   - **Root Directory:** Click Edit -> Select `Yatra Saathi/frontend`
    - **Build Command:** `npm run build`
    - **Output Directory:** `dist`
    - **Install Command:** `npm install`
@@ -172,14 +211,14 @@
 
 Before declaring production ready, replace the placeholders in:
 
-1. **`kv-hack2026-tech4ce/frontend/src/app/PrivacyPolicyPage.tsx` (Lines 209–211):**
+1. **`Yatra Saathi/frontend/src/app/PrivacyPolicyPage.tsx` (Lines 209–211):**
    - [ ] Operating Entity: Replace `[Legal Entity Name to be specified prior to production launch]` with legal entity name.
-   - [ ] Privacy Email: Replace `privacy@example.com` with official privacy email.
+   - [ ] Privacy Email: Replace `sharathkudachi30@gmail.com` with official privacy email.
    - [ ] Physical Address: Replace `[Registered business address to be specified prior to production launch]` with official postal address.
 
-2. **`kv-hack2026-tech4ce/frontend/src/app/TermsPage.tsx` (Lines 195–196):**
+2. **`Yatra Saathi/frontend/src/app/TermsPage.tsx` (Lines 195–196):**
    - [ ] Jurisdiction: Replace `[Applicable state/national jurisdiction to be designated prior to launch]` (e.g. *State of Karnataka, India* or *Delaware, USA*).
-   - [ ] Legal Email: Replace `legal@example.com` with official contact email.
+   - [ ] Legal Email: Replace `sharathkudachi30@gmail.com` with official contact email.
 
 ---
 
