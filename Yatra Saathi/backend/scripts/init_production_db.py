@@ -18,6 +18,12 @@ from __future__ import annotations
 import os
 import sys
 from pathlib import Path
+
+# Ensure the backend root directory is on sys.path
+_BACKEND_DIR = Path(__file__).resolve().parent.parent
+if str(_BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(_BACKEND_DIR))
+
 from dotenv import load_dotenv
 
 for candidate in [Path(__file__).parent.parent / ".env.backend", Path(".env.backend"), Path("backend/.env.backend")]:

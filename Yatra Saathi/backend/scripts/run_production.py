@@ -1,17 +1,27 @@
 """Production entrypoint for FastAPI backend on Render / Cloud.
 
-Usage (from backend/): python -m scripts.run_production
+Usage (from backend/):
+    python scripts/run_production.py
+    OR
+    python -m scripts.run_production
 
-1. Runs scripts.init_production_db to ensure working database copy exists and is migrated.
-2. Reads PORT from environment (default: 8000).
-3. Starts Uvicorn listening on 0.0.0.0:${PORT}.
+1. Ensures backend root is on sys.path.
+2. Runs scripts.init_production_db to ensure database exists and is migrated.
+3. Reads PORT from environment (default: 8000).
+4. Starts Uvicorn listening on 0.0.0.0:${PORT}.
 """
 from __future__ import annotations
 
 import os
 import sys
-import uvicorn
+from pathlib import Path
 
+# Ensure the backend root directory (parent of scripts/) is on sys.path
+_BACKEND_DIR = Path(__file__).resolve().parent.parent
+if str(_BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(_BACKEND_DIR))
+
+import uvicorn
 from scripts.init_production_db import init_db
 
 if __name__ == "__main__":
