@@ -158,14 +158,23 @@ POSTGRES_DDL_STATEMENTS = [
     # 4. Trips & Budgets
     """CREATE TABLE IF NOT EXISTS trips (
         trip_id VARCHAR(64) PRIMARY KEY,
-        user_id VARCHAR(64) NOT NULL,
+        owner_user_id VARCHAR(64),
+        user_id VARCHAR(64),
         title VARCHAR(255) NOT NULL,
+        origin_city_id VARCHAR(32),
         destination_city_id VARCHAR(32),
         start_date VARCHAR(10) NOT NULL,
         end_date VARCHAR(10) NOT NULL,
         party_size INTEGER NOT NULL DEFAULT 1,
+        adults INTEGER NOT NULL DEFAULT 1,
+        children INTEGER NOT NULL DEFAULT 0,
+        trip_type VARCHAR(32) NOT NULL DEFAULT 'leisure',
+        is_group_trip INTEGER NOT NULL DEFAULT 0,
         status VARCHAR(32) NOT NULL DEFAULT 'planning',
-        created_at VARCHAR(32) NOT NULL
+        home_currency VARCHAR(3) NOT NULL DEFAULT 'INR',
+        notes TEXT,
+        created_at VARCHAR(32) NOT NULL,
+        updated_at VARCHAR(32)
     );""",
 
     """CREATE TABLE IF NOT EXISTS budgets (
@@ -173,10 +182,58 @@ POSTGRES_DDL_STATEMENTS = [
         trip_id VARCHAR(64) NOT NULL,
         currency VARCHAR(3) NOT NULL DEFAULT 'INR',
         total VARCHAR(32) NOT NULL,
+        total_amount VARCHAR(32),
         committed VARCHAR(32) NOT NULL DEFAULT '0',
-        remaining VARCHAR(32) NOT NULL,
+        remaining VARCHAR(32) NOT NULL DEFAULT '0',
+        accommodation_cap VARCHAR(32),
+        transport_cap VARCHAR(32),
+        food_cap VARCHAR(32),
+        activities_cap VARCHAR(32),
+        misc_cap VARCHAR(32),
+        alert_threshold_pct INTEGER DEFAULT 80,
         status VARCHAR(32) NOT NULL DEFAULT 'active',
-        created_at VARCHAR(32) NOT NULL
+        created_at VARCHAR(32) NOT NULL,
+        updated_at VARCHAR(32)
+    );""",
+
+    """CREATE TABLE IF NOT EXISTS itineraries (
+        itinerary_id VARCHAR(64) PRIMARY KEY,
+        trip_id VARCHAR(64) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        version INTEGER NOT NULL DEFAULT 1,
+        is_active INTEGER NOT NULL DEFAULT 1,
+        generated_by VARCHAR(64) NOT NULL DEFAULT 'system',
+        total_cost VARCHAR(32) NOT NULL DEFAULT '0.00',
+        currency VARCHAR(3) NOT NULL DEFAULT 'INR',
+        total_duration_minutes INTEGER NOT NULL DEFAULT 0,
+        total_carbon_kg DOUBLE PRECISION NOT NULL DEFAULT 0.0,
+        optimizer_weights TEXT,
+        status VARCHAR(32) NOT NULL DEFAULT 'confirmed',
+        created_at VARCHAR(32) NOT NULL,
+        updated_at VARCHAR(32) NOT NULL
+    );""",
+
+    """CREATE TABLE IF NOT EXISTS itinerary_items (
+        item_id VARCHAR(64) PRIMARY KEY,
+        itinerary_id VARCHAR(64) NOT NULL,
+        day_index INTEGER NOT NULL DEFAULT 0,
+        sort_order INTEGER NOT NULL DEFAULT 0,
+        starts_at VARCHAR(32),
+        ends_at VARCHAR(32),
+        item_type VARCHAR(32) NOT NULL DEFAULT 'activity',
+        entity_type VARCHAR(32),
+        entity_id VARCHAR(64),
+        title VARCHAR(255) NOT NULL,
+        cost VARCHAR(32) NOT NULL DEFAULT '0.00',
+        currency VARCHAR(3) NOT NULL DEFAULT 'INR',
+        carbon_kg DOUBLE PRECISION NOT NULL DEFAULT 0.0,
+        duration_minutes INTEGER NOT NULL DEFAULT 0,
+        source VARCHAR(32) NOT NULL DEFAULT 'system',
+        explanation TEXT,
+        locked INTEGER NOT NULL DEFAULT 0,
+        status VARCHAR(32) NOT NULL DEFAULT 'confirmed',
+        created_at VARCHAR(32) NOT NULL,
+        updated_at VARCHAR(32) NOT NULL
     );""",
 
     # 5. Agent Sessions, State & Carts (Migration 0001)
@@ -554,6 +611,27 @@ def init_postgres_schema(conn: Any) -> int:
         "ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS dedupe_key VARCHAR(128)",
         "CREATE INDEX IF NOT EXISTS ix_p6notif_user ON phase6_notifications (user_id, created_at)",
         "CREATE INDEX IF NOT EXISTS ix_p6notif_dedupe ON phase6_notifications (dedupe_key)",
+        # trips additive columns
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS owner_user_id VARCHAR(64)",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS origin_city_id VARCHAR(32)",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS adults INTEGER DEFAULT 1",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS children INTEGER DEFAULT 0",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS trip_type VARCHAR(32) DEFAULT 'leisure'",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS is_group_trip INTEGER DEFAULT 0",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS home_currency VARCHAR(3) DEFAULT 'INR'",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS notes TEXT",
+        "ALTER TABLE trips ADD COLUMN IF NOT EXISTS updated_at VARCHAR(32)",
+        "UPDATE trips SET owner_user_id = user_id WHERE owner_user_id IS NULL AND user_id IS NOT NULL",
+        # budgets additive columns
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS total_amount VARCHAR(32)",
+        "UPDATE budgets SET total_amount = total WHERE total_amount IS NULL AND total IS NOT NULL",
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS accommodation_cap VARCHAR(32)",
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS transport_cap VARCHAR(32)",
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS food_cap VARCHAR(32)",
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS activities_cap VARCHAR(32)",
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS misc_cap VARCHAR(32)",
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS alert_threshold_pct INTEGER DEFAULT 80",
+        "ALTER TABLE budgets ADD COLUMN IF NOT EXISTS updated_at VARCHAR(32)",
     ]
     for stmt in migration_stmts:
         try:
