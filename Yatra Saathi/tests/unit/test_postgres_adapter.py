@@ -198,6 +198,58 @@ class TestPostgresAdapter(unittest.TestCase):
         self.assertTrue(any("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_type" in s for s in executed_sqls))
         self.assertTrue(any("ALTER TABLE auth_rate_limits ALTER COLUMN ip_address DROP NOT NULL" in s for s in executed_sqls))
 
+    def test_postgres_schema_sessions_and_notifications_canonical(self):
+        """POSTGRES_DDL_STATEMENTS defines agent_sessions, notifications, and emergency tables."""
+        from src.db.postgres_schema import POSTGRES_DDL_STATEMENTS
+        
+        sessions_ddl = next((ddl for ddl in POSTGRES_DDL_STATEMENTS if "agent_sessions" in ddl and "CREATE TABLE" in ddl), None)
+        self.assertIsNotNone(sessions_ddl)
+        self.assertIn("last_error_code", sessions_ddl)
+        self.assertIn("goal_text", sessions_ddl)
+        self.assertIn("constraints_json", sessions_ddl)
+        self.assertIn("spend_committed", sessions_ddl)
+
+        notif_ddl = next((ddl for ddl in POSTGRES_DDL_STATEMENTS if "phase6_notifications" in ddl and "CREATE TABLE" in ddl), None)
+        self.assertIsNotNone(notif_ddl)
+        self.assertIn("is_read", notif_ddl)
+        self.assertIn("event_type", notif_ddl)
+        self.assertIn("dedupe_key", notif_ddl)
+
+        pack_ddl = next((ddl for ddl in POSTGRES_DDL_STATEMENTS if "trip_packs" in ddl and "CREATE TABLE" in ddl), None)
+        self.assertIsNotNone(pack_ddl)
+
+        emergency_ddl = next((ddl for ddl in POSTGRES_DDL_STATEMENTS if "phase6_emergency_contacts" in ddl and "CREATE TABLE" in ddl), None)
+        self.assertIsNotNone(emergency_ddl)
+
+    def test_postgres_schema_additive_migrations_for_sessions_and_notifications(self):
+        """init_postgres_schema applies additive migrations for agent_sessions and notifications."""
+        from src.db.postgres_schema import init_postgres_schema
+
+        mock_conn = MagicMock()
+        mock_count_cursor = MagicMock()
+        mock_count_cursor.fetchone.return_value = (25,)
+        mock_conn.execute.return_value = mock_count_cursor
+
+        num_stmts = init_postgres_schema(mock_conn)
+        self.assertGreater(num_stmts, 0)
+
+        executed_sqls = [call[0][0] for call in mock_conn.execute.call_args_list]
+        self.assertTrue(any("ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS last_error_code" in s for s in executed_sqls))
+        self.assertTrue(any("ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS constraints_json" in s for s in executed_sqls))
+        self.assertTrue(any("ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS is_read" in s for s in executed_sqls))
+        self.assertTrue(any("ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS dedupe_key" in s for s in executed_sqls))
+
+    def test_errors_cors_headers_preserved(self):
+        """Errors handler attaches CORS headers when origin is present."""
+        from unittest.mock import MagicMock
+        from src.api.errors import _cors_headers
+
+        req = MagicMock()
+        req.headers.get.side_effect = lambda k: "https://yatra-saathi-frontend.vercel.app" if k == "origin" else None
+        headers = _cors_headers(req)
+        self.assertEqual(headers.get("Access-Control-Allow-Origin"), "https://yatra-saathi-frontend.vercel.app")
+        self.assertEqual(headers.get("Access-Control-Allow-Credentials"), "true")
+
 
 if __name__ == "__main__":
     unittest.main()

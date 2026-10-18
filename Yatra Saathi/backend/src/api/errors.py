@@ -16,10 +16,27 @@ _AUTH_CODE_FOR_ERROR = {
 }
 
 
+def _cors_headers(request: Request) -> dict[str, str]:
+    origin = request.headers.get("origin")
+    if not origin:
+        return {}
+    return {
+        "Access-Control-Allow-Origin": origin,
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Methods": "*",
+    }
+
+
 def register(app: FastAPI) -> None:
     @app.exception_handler(RefusalError)
     async def _refusal_handler(request: Request, exc: RefusalError) -> JSONResponse:
-        return JSONResponse(status_code=exc.http_status, content=refused(exc.code, exc.message))
+        headers = _cors_headers(request)
+        return JSONResponse(
+            status_code=exc.http_status,
+            content=refused(exc.code, exc.message),
+            headers=headers if headers else None,
+        )
 
     @app.exception_handler(TokenError)
     async def _token_handler(request: Request, exc: TokenError) -> JSONResponse:
@@ -28,8 +45,18 @@ def register(app: FastAPI) -> None:
             if isinstance(exc, error_type):
                 code = mapped_code
                 break
-        return JSONResponse(status_code=401, content=refused(code, str(exc)))
+        headers = _cors_headers(request)
+        return JSONResponse(
+            status_code=401,
+            content=refused(code, str(exc)),
+            headers=headers if headers else None,
+        )
 
     @app.exception_handler(Exception)
     async def _unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
-        return JSONResponse(status_code=500, content=refused("INTERNAL_ERROR", str(exc) or "An internal server error occurred."))
+        headers = _cors_headers(request)
+        return JSONResponse(
+            status_code=500,
+            content=refused("INTERNAL_ERROR", str(exc) or "An internal server error occurred."),
+            headers=headers if headers else None,
+        )

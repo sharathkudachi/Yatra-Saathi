@@ -184,12 +184,19 @@ POSTGRES_DDL_STATEMENTS = [
         session_id VARCHAR(64) PRIMARY KEY,
         user_id VARCHAR(64) NOT NULL,
         trip_id VARCHAR(64),
-        status VARCHAR(32) NOT NULL DEFAULT 'active',
-        spend_cap VARCHAR(32),
-        currency VARCHAR(3) NOT NULL DEFAULT 'INR',
-        replan_count INTEGER NOT NULL DEFAULT 0,
+        goal_text TEXT NOT NULL DEFAULT '',
+        goal_language VARCHAR(32) NOT NULL DEFAULT 'en-IN',
+        constraints_json TEXT NOT NULL DEFAULT '{}',
+        plan_steps_json TEXT NOT NULL DEFAULT '[]',
         current_step VARCHAR(64),
+        spend_cap VARCHAR(32),
+        spend_committed VARCHAR(32) NOT NULL DEFAULT '0.00',
+        currency VARCHAR(3) NOT NULL DEFAULT 'INR',
         requires_confirmation INTEGER NOT NULL DEFAULT 0,
+        confirmed_at VARCHAR(32),
+        replan_count INTEGER NOT NULL DEFAULT 0,
+        last_error_code VARCHAR(64),
+        status VARCHAR(32) NOT NULL DEFAULT 'active',
         created_at VARCHAR(32) NOT NULL,
         updated_at VARCHAR(32) NOT NULL
     );""",
@@ -361,15 +368,68 @@ POSTGRES_DDL_STATEMENTS = [
     """CREATE TABLE IF NOT EXISTS phase6_notifications (
         notification_id VARCHAR(64) PRIMARY KEY,
         user_id VARCHAR(64) NOT NULL,
-        category VARCHAR(64) NOT NULL,
+        event_type VARCHAR(64) NOT NULL DEFAULT 'TRIP_UPCOMING',
+        category VARCHAR(64) DEFAULT 'general',
         title VARCHAR(255) NOT NULL,
         body TEXT NOT NULL,
+        language VARCHAR(16) NOT NULL DEFAULT 'en-IN',
+        is_read INTEGER NOT NULL DEFAULT 0,
+        read_at VARCHAR(32),
+        trip_id VARCHAR(64),
+        booking_id VARCHAR(64),
+        dedupe_key VARCHAR(128),
         priority VARCHAR(32) NOT NULL DEFAULT 'normal',
         action_url VARCHAR(255),
         metadata_json TEXT NOT NULL DEFAULT '{}',
         created_at VARCHAR(32) NOT NULL,
-        read_at VARCHAR(32),
         dismissed_at VARCHAR(32)
+    );""",
+
+    """CREATE INDEX IF NOT EXISTS ix_p6notif_user ON phase6_notifications (user_id, created_at);""",
+    """CREATE INDEX IF NOT EXISTS ix_p6notif_dedupe ON phase6_notifications (dedupe_key);""",
+
+    """CREATE TABLE IF NOT EXISTS trip_packs (
+        pack_id VARCHAR(64) PRIMARY KEY,
+        booking_id VARCHAR(64) NOT NULL,
+        user_id VARCHAR(64) NOT NULL,
+        pack_json TEXT NOT NULL,
+        pack_version INTEGER NOT NULL DEFAULT 1,
+        is_demo INTEGER NOT NULL DEFAULT 1,
+        demo_label VARCHAR(128) NOT NULL DEFAULT 'YATRA DEMO TRIP PACK',
+        generated_at VARCHAR(32) NOT NULL
+    );""",
+
+    """CREATE TABLE IF NOT EXISTS phase6_emergency_contacts (
+        contact_id VARCHAR(64) PRIMARY KEY,
+        user_id VARCHAR(64) NOT NULL,
+        name VARCHAR(128) NOT NULL,
+        relationship VARCHAR(64) NOT NULL,
+        phone_number VARCHAR(32) NOT NULL,
+        is_primary INTEGER NOT NULL DEFAULT 1,
+        created_at VARCHAR(32) NOT NULL,
+        updated_at VARCHAR(32) NOT NULL
+    );""",
+
+    """CREATE TABLE IF NOT EXISTS phase6_emergency_events (
+        event_id VARCHAR(64) PRIMARY KEY,
+        user_id VARCHAR(64) NOT NULL,
+        event_type VARCHAR(64) NOT NULL,
+        trip_id VARCHAR(64),
+        booking_id VARCHAR(64),
+        details_json TEXT NOT NULL DEFAULT '{}',
+        created_at VARCHAR(32) NOT NULL
+    );""",
+
+    """CREATE TABLE IF NOT EXISTS phase5_booking_events (
+        event_id VARCHAR(64) PRIMARY KEY,
+        booking_id VARCHAR(64) NOT NULL,
+        user_id VARCHAR(64) NOT NULL,
+        event_type VARCHAR(64) NOT NULL,
+        occurred_at VARCHAR(32) NOT NULL,
+        actor VARCHAR(32) NOT NULL DEFAULT 'system',
+        prev_status VARCHAR(64),
+        new_status VARCHAR(64),
+        metadata_json TEXT NOT NULL DEFAULT '{}'
     );""",
 
     # 8. Emergency Assistance & Trusted Contacts (Phase 6)
@@ -477,6 +537,23 @@ def init_postgres_schema(conn: Any) -> int:
         "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS last_attempt VARCHAR(64)",
         "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS blocked_until VARCHAR(64)",
         "CREATE INDEX IF NOT EXISTS ix_auth_rate_limits_key ON auth_rate_limits (attempt_key)",
+        # agent_sessions additive columns
+        "ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS goal_text TEXT DEFAULT ''",
+        "ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS goal_language VARCHAR(32) DEFAULT 'en-IN'",
+        "ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS constraints_json TEXT DEFAULT '{}'",
+        "ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS plan_steps_json TEXT DEFAULT '[]'",
+        "ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS spend_committed VARCHAR(32) DEFAULT '0.00'",
+        "ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS confirmed_at VARCHAR(32)",
+        "ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS last_error_code VARCHAR(64)",
+        # phase6_notifications additive columns
+        "ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS event_type VARCHAR(64) DEFAULT 'TRIP_UPCOMING'",
+        "ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS language VARCHAR(16) DEFAULT 'en-IN'",
+        "ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS is_read INTEGER DEFAULT 0",
+        "ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS trip_id VARCHAR(64)",
+        "ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS booking_id VARCHAR(64)",
+        "ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS dedupe_key VARCHAR(128)",
+        "CREATE INDEX IF NOT EXISTS ix_p6notif_user ON phase6_notifications (user_id, created_at)",
+        "CREATE INDEX IF NOT EXISTS ix_p6notif_dedupe ON phase6_notifications (dedupe_key)",
     ]
     for stmt in migration_stmts:
         try:
