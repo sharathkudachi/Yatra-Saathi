@@ -262,12 +262,60 @@ class TestPostgresAdapter(unittest.TestCase):
         from src.api.errors import _cors_headers, is_trusted_origin
 
         req = MagicMock()
-        req.headers.get.side_effect = lambda k: "https://attacker.evil.com" if k == "origin" else None
         req.app.state.settings.cors_allow_origins = ["https://yatra-saathi-frontend.vercel.app"]
-        self.assertFalse(is_trusted_origin("https://attacker.evil.com", req))
 
-        headers = _cors_headers(req)
-        self.assertEqual(headers, {})
+        # Multiple hostile origin variations
+        hostile_origins = [
+            "https://attacker.evil.com",
+            "https://evil-yatra-saathi-frontend.vercel.app",
+            "https://attacker.com",
+            "http://malicious.org",
+        ]
+        for hostile in hostile_origins:
+            req.headers.get.side_effect = lambda k, h=hostile: h if k == "origin" else None
+            self.assertFalse(is_trusted_origin(hostile, req), f"Expected {hostile} to be rejected")
+            headers = _cors_headers(req)
+            self.assertEqual(headers, {}, f"Expected empty headers for {hostile}")
+
+    def test_cors_preflight_approved_and_unapproved(self):
+        """Test preflight OPTIONS handling for approved and unapproved origins."""
+        from fastapi import FastAPI
+        from fastapi.testclient import TestClient
+        from fastapi.middleware.cors import CORSMiddleware
+        from src.api.errors import register
+
+        app = FastAPI()
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["https://yatra-saathi-frontend.vercel.app", "http://localhost:5173"],
+            allow_origin_regex=r"^https:\/\/.*yatra-saathi-frontend.*\.vercel\.app$",
+            allow_credentials=False,
+            allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+            allow_headers=["Authorization", "Content-Type", "Accept", "X-Request-ID", "Origin"],
+        )
+        register(app)
+
+        @app.get("/test-endpoint")
+        def sample():
+            return {"ok": True}
+
+        client = TestClient(app)
+
+        # 1. Preflight from approved origin
+        res = client.options("/test-endpoint", headers={
+            "Origin": "https://yatra-saathi-frontend.vercel.app",
+            "Access-Control-Request-Method": "GET",
+        })
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.headers.get("access-control-allow-origin"), "https://yatra-saathi-frontend.vercel.app")
+        self.assertNotIn("access-control-allow-credentials", res.headers)
+
+        # 2. Preflight from hostile origin
+        res = client.options("/test-endpoint", headers={
+            "Origin": "https://attacker.evil.com",
+            "Access-Control-Request-Method": "GET",
+        })
+        self.assertNotEqual(res.headers.get("access-control-allow-origin"), "https://attacker.evil.com")
 
     def test_unhandled_exception_sanitizes_internal_errors(self):
         """Unhandled 500 exceptions must not leak SQL queries or stack traces."""

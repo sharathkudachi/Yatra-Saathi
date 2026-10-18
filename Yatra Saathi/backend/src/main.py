@@ -96,7 +96,7 @@ def create_app(settings: Settings | None = None, clock=None, agent_dispatcher=No
     app.add_middleware(
         CORSMiddleware,
         allow_origins=list(cors_origins) if cors_origins else ["*"],
-        allow_origin_regex=r"^https:\/\/.*yatra-saathi-frontend.*\.vercel\.app$",
+        allow_origin_regex=r"^https:\/\/yatra-saathi-frontend(\.vercel\.app|-([a-zA-Z0-9_-]+-)?sharathkudachi\.vercel\.app)$",
         allow_credentials=False,
         allow_methods=["*"],
         allow_headers=["*"],

@@ -20,7 +20,7 @@ _AUTH_CODE_FOR_ERROR = {
     TokenMalformed: "TOKEN_INVALID",
 }
 
-_VERCEL_REGEX = re.compile(r"^https:\/\/.*yatra-saathi-frontend.*\.vercel\.app$")
+_VERCEL_REGEX = re.compile(r"^https:\/\/yatra-saathi-frontend(\.vercel\.app|-([a-zA-Z0-9_-]+-)?sharathkudachi\.vercel\.app)$")
 _DEV_REGEX = re.compile(r"^http:\/\/(localhost|127\.0\.0\.1)(:[0-9]+)?$")
 
 
