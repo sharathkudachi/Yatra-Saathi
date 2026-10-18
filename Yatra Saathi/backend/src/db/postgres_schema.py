@@ -465,33 +465,40 @@ _DEFAULT_CURRENCIES = [
 def init_postgres_schema(conn: Any) -> int:
     """Applies the PostgreSQL schema idempotently."""
     # Ensure auth_rate_limits has canonical columns if table was created previously with legacy schema
-    try:
-        cur = conn.execute(
-            "SELECT column_name FROM information_schema.columns WHERE table_name = 'auth_rate_limits'"
-        )
-        existing_cols = {r[0] for r in cur.fetchall()}
-        if existing_cols and "attempt_key" not in existing_cols:
-            logger.info("[Postgres Schema] Applying additive migration to canonicalize auth_rate_limits...")
-            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_key VARCHAR(255)")
-            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_type VARCHAR(64) DEFAULT 'login'")
-            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS first_attempt VARCHAR(64)")
-            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS last_attempt VARCHAR(64)")
-            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS blocked_until VARCHAR(64)")
-            if "ip_address" in existing_cols:
-                conn.execute("ALTER TABLE auth_rate_limits ALTER COLUMN ip_address DROP NOT NULL")
-            conn.execute("CREATE INDEX IF NOT EXISTS ix_auth_rate_limits_key ON auth_rate_limits (attempt_key)")
+    migration_stmts = [
+        "ALTER TABLE auth_rate_limits DROP CONSTRAINT IF EXISTS auth_rate_limits_pkey",
+        "ALTER TABLE auth_rate_limits ALTER COLUMN ip_address DROP NOT NULL",
+        "ALTER TABLE auth_rate_limits ALTER COLUMN first_attempt_at DROP NOT NULL",
+        "ALTER TABLE auth_rate_limits ALTER COLUMN last_attempt_at DROP NOT NULL",
+        "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_key VARCHAR(255)",
+        "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_type VARCHAR(64) DEFAULT 'login'",
+        "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_count INTEGER DEFAULT 1",
+        "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS first_attempt VARCHAR(64)",
+        "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS last_attempt VARCHAR(64)",
+        "ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS blocked_until VARCHAR(64)",
+        "CREATE INDEX IF NOT EXISTS ix_auth_rate_limits_key ON auth_rate_limits (attempt_key)",
+    ]
+    for stmt in migration_stmts:
+        try:
+            conn.execute(stmt)
+            conn.commit()
+        except Exception as exc:
             try:
-                conn.execute("ALTER TABLE auth_rate_limits DROP CONSTRAINT IF EXISTS auth_rate_limits_pkey")
-                conn.execute("ALTER TABLE auth_rate_limits ADD CONSTRAINT pk_auth_rate_limits PRIMARY KEY (attempt_key, attempt_type)")
+                conn.rollback()
             except Exception:
                 pass
-            conn.commit()
-    except Exception as exc:
-        logger.warning(f"[Postgres Schema] Notice on auth_rate_limits migration: {exc}")
+            logger.warning(f"[Postgres Schema] Migration notice on '{stmt}': {exc}")
 
     for ddl in POSTGRES_DDL_STATEMENTS:
-        conn.execute(ddl)
-    conn.commit()
+        try:
+            conn.execute(ddl)
+            conn.commit()
+        except Exception as exc:
+            try:
+                conn.rollback()
+            except Exception:
+                pass
+            logger.warning(f"[Postgres Schema] DDL notice: {exc}")
 
     # Seed default reference currencies if table is empty
     try:
@@ -500,13 +507,20 @@ def init_postgres_schema(conn: Any) -> int:
         cnt = row[0] if row else 0
         if cnt == 0:
             for code, name, sym, exp in _DEFAULT_CURRENCIES:
-                conn.execute(
-                    "INSERT INTO currencies (iso4217, name, symbol, exponent) VALUES (?, ?, ?, ?) ON CONFLICT (iso4217) DO NOTHING",
-                    (code, name, sym, exp),
-                )
+                try:
+                    conn.execute(
+                        "INSERT INTO currencies (iso4217, name, symbol, exponent) VALUES (?, ?, ?, ?) ON CONFLICT (iso4217) DO NOTHING",
+                        (code, name, sym, exp),
+                    )
+                except Exception:
+                    pass
             conn.commit()
             logger.info("[Postgres Schema] Seeded 25 reference currencies.")
     except Exception as exc:
+        try:
+            conn.rollback()
+        except Exception:
+            pass
         logger.warning(f"[Postgres Schema] Notice on currencies seeding: {exc}")
 
     logger.info("[Postgres Schema] Applied full PostgreSQL DDL schema idempotently.")

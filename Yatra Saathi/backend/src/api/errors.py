@@ -29,3 +29,7 @@ def register(app: FastAPI) -> None:
                 code = mapped_code
                 break
         return JSONResponse(status_code=401, content=refused(code, str(exc)))
+
+    @app.exception_handler(Exception)
+    async def _unhandled_exception_handler(request: Request, exc: Exception) -> JSONResponse:
+        return JSONResponse(status_code=500, content=refused("INTERNAL_ERROR", str(exc) or "An internal server error occurred."))
