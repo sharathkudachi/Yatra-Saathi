@@ -239,16 +239,67 @@ class TestPostgresAdapter(unittest.TestCase):
         self.assertTrue(any("ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS is_read" in s for s in executed_sqls))
         self.assertTrue(any("ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS dedupe_key" in s for s in executed_sqls))
 
-    def test_errors_cors_headers_preserved(self):
-        """Errors handler attaches CORS headers when origin is present."""
+    def test_errors_cors_headers_approved_origin(self):
+        """Errors handler attaches CORS headers for trusted frontend origin."""
         from unittest.mock import MagicMock
-        from src.api.errors import _cors_headers
+        from src.api.errors import _cors_headers, is_trusted_origin
 
         req = MagicMock()
         req.headers.get.side_effect = lambda k: "https://yatra-saathi-frontend.vercel.app" if k == "origin" else None
+        req.app.state.settings.cors_allow_origins = ["https://yatra-saathi-frontend.vercel.app"]
+        self.assertTrue(is_trusted_origin("https://yatra-saathi-frontend.vercel.app", req))
+
         headers = _cors_headers(req)
         self.assertEqual(headers.get("Access-Control-Allow-Origin"), "https://yatra-saathi-frontend.vercel.app")
-        self.assertEqual(headers.get("Access-Control-Allow-Credentials"), "true")
+        # Ensure credentials header is not emitted (auth uses Bearer tokens)
+        self.assertNotIn("Access-Control-Allow-Credentials", headers)
+        self.assertIn("GET", headers.get("Access-Control-Allow-Methods", ""))
+        self.assertIn("Authorization", headers.get("Access-Control-Allow-Headers", ""))
+
+    def test_errors_cors_headers_unapproved_origin_rejected(self):
+        """Errors handler rejects unapproved or arbitrary origins."""
+        from unittest.mock import MagicMock
+        from src.api.errors import _cors_headers, is_trusted_origin
+
+        req = MagicMock()
+        req.headers.get.side_effect = lambda k: "https://attacker.evil.com" if k == "origin" else None
+        req.app.state.settings.cors_allow_origins = ["https://yatra-saathi-frontend.vercel.app"]
+        self.assertFalse(is_trusted_origin("https://attacker.evil.com", req))
+
+        headers = _cors_headers(req)
+        self.assertEqual(headers, {})
+
+    def test_unhandled_exception_sanitizes_internal_errors(self):
+        """Unhandled 500 exceptions must not leak SQL queries or stack traces."""
+        import asyncio
+        from unittest.mock import MagicMock
+        from fastapi import FastAPI
+        from src.api.errors import register
+
+        app = FastAPI()
+        register(app)
+
+        # Retrieve registered 500 handler
+        handler = app.exception_handlers.get(Exception)
+        self.assertIsNotNone(handler)
+
+        req = MagicMock()
+        req.method = "POST"
+        req.url = "http://testserver/api/v1/search/hotels"
+        req.headers.get.side_effect = lambda k: "https://yatra-saathi-frontend.vercel.app" if k == "origin" else None
+
+        exc = RuntimeError("psycopg2.OperationalError: syntax error at or near 'SELECT table_secrets'")
+        resp = asyncio.run(handler(req, exc))
+
+        self.assertEqual(resp.status_code, 500)
+        import json
+        body = json.loads(resp.body.decode("utf-8"))
+        self.assertEqual(body.get("ok"), False)
+        self.assertEqual(body.get("refusal", {}).get("code"), "INTERNAL_ERROR")
+        # Message must be generic and not contain the SQL syntax error or secret name
+        self.assertNotIn("table_secrets", body.get("refusal", {}).get("message", ""))
+        self.assertNotIn("syntax error", body.get("refusal", {}).get("message", ""))
+        self.assertIn("internal server error", body.get("refusal", {}).get("message", "").lower())
 
 
 if __name__ == "__main__":

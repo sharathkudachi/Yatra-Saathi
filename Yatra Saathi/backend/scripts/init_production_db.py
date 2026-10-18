@@ -71,6 +71,21 @@ def init_db(settings: Settings | None = None) -> int:
             else:
                 print("[Init DB] Existing demo user usr_demo0001 verified.")
 
+            # Seed reference catalog if cities table is empty
+            try:
+                city_count = conn.execute("SELECT COUNT(*) FROM cities").fetchone()[0]
+            except Exception:
+                city_count = 0
+            if city_count == 0:
+                source_db = settings.original_db_path or settings.db_path
+                if source_db and os.path.isfile(source_db):
+                    print(f"[Init DB] Catalog tables empty. Seeding catalog from {source_db}...")
+                    try:
+                        from scripts.seed_postgres_catalog import seed_catalog
+                        seed_catalog(source_db, settings.database_url)
+                    except Exception as e:
+                        print(f"[Init DB] Warning: Catalog seed encountered: {e}")
+
             # Health check: query public tables
             cur = conn.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
             tables = [r[0] for r in cur.fetchall()]
