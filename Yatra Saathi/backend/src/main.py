@@ -50,6 +50,15 @@ AGENT_PREFIX = "/internal/agent/v1"
 
 
 def _validate_startup_db(settings: Settings) -> None:
+    if settings.is_postgres:
+        from src.db.connection import connect
+        conn = connect(settings)
+        try:
+            conn.execute("SELECT 1")
+        finally:
+            conn.close()
+        return
+
     path = settings.require_db_path()
     try:
         assert_working_copy(path, settings.original_db_path)
