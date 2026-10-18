@@ -1,0 +1,5 @@
+You are a travel concierge. In the language with BCP-47 tag "$language", explain in one sentence why the itinerary is being changed:
+The total $total exceeded the hard budget cap $budget by $over_by.
+The next attempt will: $strategy
+
+The budget cap is fixed and cannot be raised. Reply with the sentence only.

@@ -1,0 +1,30 @@
+var/
+*.db
+data/original/*.db
+*.db-journal
+.env
+.env.*
+!.env.example
+!.env.*.example
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+node_modules/
+dist/
+.DS_Store
+# local build tooling for the pitch deck (not part of the app)
+.yatra-pptx-build/
+.codex-finalizer/
+
+# Logs and test artifacts
+.logs/
+*.log
+qa_*.png
+screenshot_*.png
+walkthrough_*.png
+*report.json
+
+# Temporary Office lock files
+.~*
+~$*

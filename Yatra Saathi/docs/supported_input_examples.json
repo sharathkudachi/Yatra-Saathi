@@ -1,0 +1,436 @@
+{
+  "version": "1.0",
+  "validated_at": "2026-10-06",
+  "source_of_truth": "backend/var/aps01_working.db queried through backend APIs",
+  "categories": [
+    {
+      "id": "trip_planning",
+      "label": "Plan a trip",
+      "surface": "chat",
+      "description": "Round-trip flight and hotel concierge planning via the interactive AI chat assistant.",
+      "examples": [
+        {
+          "prompt": "Plan a trip from Mumbai to Lucknow for 2 adults from 16 to 19 November 2026 under ₹45000.",
+          "category": "complete_trip_planning",
+          "label": "Mumbai → Lucknow · 2 adults",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Extracts origin Mumbai, destination Lucknow, dates 16-19 Nov 2026, 2 travellers, budget ₹45000; returns 3 complete round-trip packages within budget.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Mumbai",
+            "destination": "Lucknow",
+            "start_date": "2026-11-16",
+            "end_date": "2026-11-19",
+            "travellers": 2,
+            "budget": "45000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹45,000 cap (lowest total: ₹35,975.79).",
+          "notes": "Real scheduled flights and verified hotel rooms."
+        },
+        {
+          "prompt": "Plan a trip from Ahmedabad to Bengaluru for 2 adults from 14 October 2026 to 19 October 2026 under ₹100000.",
+          "category": "complete_trip_planning",
+          "label": "Ahmedabad → Bengaluru",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Extracts Ahmedabad to Bengaluru for 5 nights with ₹100000 cap; returns 3 package options.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Ahmedabad",
+            "destination": "Bengaluru",
+            "start_date": "2026-10-14",
+            "end_date": "2026-10-19",
+            "travellers": 2,
+            "budget": "100000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹100,000 cap (selected cart total: ₹88,173.25).",
+          "notes": "Covers multi-night stay with flight pairing."
+        },
+        {
+          "prompt": "Plan a trip from Ahmedabad to Hyderabad for 2 adults from 15 to 18 October 2026 under ₹55000.",
+          "category": "trip_planning_with_budget",
+          "label": "Ahmedabad → Hyderabad",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Extracts Ahmedabad to Hyderabad with ₹55000 cap; finds available flights and stays within budget.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Ahmedabad",
+            "destination": "Hyderabad",
+            "start_date": "2026-10-15",
+            "end_date": "2026-10-18",
+            "travellers": 2,
+            "budget": "55000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹55,000 cap (selected cart total: ₹31,541.48).",
+          "notes": "Comfortably fits within budget."
+        },
+        {
+          "prompt": "Plan a trip from Ahmedabad to Lucknow for 2 adults from 7 to 12 November 2026 under ₹80000.",
+          "category": "date_specific_planning",
+          "label": "Ahmedabad → Lucknow · 5 nights",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Plans a 5-night trip from 7 to 12 Nov 2026 within ₹80000 cap; returns 3 packages.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Ahmedabad",
+            "destination": "Lucknow",
+            "start_date": "2026-11-07",
+            "end_date": "2026-11-12",
+            "travellers": 2,
+            "budget": "80000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹80,000 cap (selected cart total: ₹49,794.78).",
+          "notes": "5-night hotel occupancy checked night by night."
+        },
+        {
+          "prompt": "Plan a trip from Bengaluru to Jaipur for 2 adults from 4 to 9 November 2026 under ₹75000.",
+          "category": "complete_trip_planning",
+          "label": "Bengaluru → Jaipur",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Plans round trip between Bengaluru and Jaipur within ₹75000 cap.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Bengaluru",
+            "destination": "Jaipur",
+            "start_date": "2026-11-04",
+            "end_date": "2026-11-09",
+            "travellers": 2,
+            "budget": "75000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹75,000 cap (selected cart total: ₹51,860.51).",
+          "notes": "Cultural destination route with hotel verification."
+        },
+        {
+          "prompt": "Plan a trip from Chennai to Pune for 2 adults from 3 Nov to 7 Nov 2026 under ₹65000.",
+          "category": "date_specific_planning",
+          "label": "Chennai → Pune",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Parses abbreviated month names '3 Nov to 7 Nov'; plans trip within ₹65000 cap.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Chennai",
+            "destination": "Pune",
+            "start_date": "2026-11-03",
+            "end_date": "2026-11-07",
+            "travellers": 2,
+            "budget": "65000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "1 package option returned within ₹65,000 cap (cart total: ₹31,029.03).",
+          "notes": "Tests abbreviated month parsing."
+        },
+        {
+          "prompt": "Plan a trip from Ahmedabad to New Delhi for 2 adults from 3 to 5 November 2026 under ₹45000.",
+          "category": "complete_trip_planning",
+          "label": "Ahmedabad → New Delhi",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Plans a quick 2-night trip to New Delhi within ₹45000 cap.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Ahmedabad",
+            "destination": "New Delhi",
+            "start_date": "2026-11-03",
+            "end_date": "2026-11-05",
+            "travellers": 2,
+            "budget": "45000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹45,000 cap (selected cart total: ₹33,030.51).",
+          "notes": "Alias 'New Delhi' matched and verified."
+        },
+        {
+          "prompt": "Plan a trip from Ahmedabad to Lucknow for 2 adults from 10 to 12 November 2026 under ₹35000.",
+          "category": "trip_planning_with_budget",
+          "label": "Lucknow · 2 nights",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Plans a budget-tight 2-night trip to Lucknow under ₹35000.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Ahmedabad",
+            "destination": "Lucknow",
+            "start_date": "2026-11-10",
+            "end_date": "2026-11-12",
+            "travellers": 2,
+            "budget": "35000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹35,000 cap (selected cart total: ₹28,346.52).",
+          "notes": "Strict budget enforcement."
+        },
+        {
+          "prompt": "Plan a trip from Mumbai to Kolkata for 5 adults from 12 to 16 October 2026 under ₹50000.",
+          "category": "trip_planning_with_travellers",
+          "label": "Mumbai → Kolkata · 5 adults",
+          "supported": true,
+          "database_validated": true,
+          "validation": "EXPECTED_CLARIFICATION",
+          "expected_behavior": "Parses party size of 5; finds outbound flight on 12 Oct; detects return flight on 16 Oct has insufficient capacity for 5 adults; triggers clarification offering later available return dates without altering original dates.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Mumbai",
+            "destination": "Kolkata",
+            "start_date": "2026-10-12",
+            "end_date": "2026-10-16",
+            "travellers": 5,
+            "budget": "50000.00 INR"
+          },
+          "inventory_available": false,
+          "observed_result": "Outbound seats confirmed (BA-6548). No 5-seat return available on 16 Oct. Clarification requested with interactive date chips for 4 Nov and 19 Nov.",
+          "notes": "Canonical regression test case. Never invents availability or silently alters dates."
+        },
+        {
+          "prompt": "Plan a 3-night trip from Mumbai to Lucknow on 16 November 2026 for 3 adults under ₹90000.",
+          "category": "duration_based_planning",
+          "label": "Mumbai → Lucknow · 3 adults",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Parses duration phrasing ('3-night') and adds 3 days to start date 16 Nov 2026 (check-out 19 Nov 2026) for 3 adults under ₹90000 cap.",
+          "expected_intent": "round_trip_with_hotel",
+          "required_entities": {
+            "origin": "Mumbai",
+            "destination": "Lucknow",
+            "start_date": "2026-11-16",
+            "end_date": "2026-11-19",
+            "travellers": 3,
+            "budget": "90000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "3 package options returned within ₹90,000 cap (selected cart total: ₹79,379.93).",
+          "notes": "Tests duration offset logic for odd traveller counts."
+        }
+      ]
+    },
+    {
+      "id": "flight_search",
+      "label": "Find flights",
+      "surface": "Flights form (not chat)",
+      "description": "Direct one-way flight search with route, date, passengers, and cabin class.",
+      "examples": [
+        {
+          "prompt": "Find flights from Mumbai to Lucknow on 16 November 2026 for 2 passengers.",
+          "category": "flight_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Direct flight search returns available scheduled fares for 2 passengers in economy.",
+          "expected_intent": "one_way_economy_flight_search",
+          "required_entities": {
+            "origin": "Mumbai",
+            "destination": "Lucknow",
+            "departure_date": "2026-11-16",
+            "passengers": 2,
+            "cabin": "economy",
+            "currency": "INR"
+          },
+          "inventory_available": true,
+          "observed_result": "1 fare returned with real inventory.",
+          "notes": "Direct Flights search does not support budget filtering."
+        },
+        {
+          "prompt": "Find flights from Lucknow to Mumbai on 19 November 2026 for 2 passengers.",
+          "category": "flight_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Returns return leg options from Lucknow to Mumbai on 19 Nov 2026.",
+          "expected_intent": "one_way_economy_flight_search",
+          "required_entities": {
+            "origin": "Lucknow",
+            "destination": "Mumbai",
+            "departure_date": "2026-11-19",
+            "passengers": 2,
+            "cabin": "economy",
+            "currency": "INR"
+          },
+          "inventory_available": true,
+          "observed_result": "2 fares returned.",
+          "notes": "Demonstrates return flight inventory."
+        },
+        {
+          "prompt": "Find flights from Ahmedabad to Bengaluru on 14 October 2026 for 2 passengers.",
+          "category": "flight_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Searches and returns direct flights for 2 passengers on 14 Oct 2026.",
+          "expected_intent": "one_way_economy_flight_search",
+          "required_entities": {
+            "origin": "Ahmedabad",
+            "destination": "Bengaluru",
+            "departure_date": "2026-10-14",
+            "passengers": 2,
+            "cabin": "economy",
+            "currency": "INR"
+          },
+          "inventory_available": true,
+          "observed_result": "2 fares returned.",
+          "notes": "Database validated schedule."
+        },
+        {
+          "prompt": "Find flights from Mumbai to Kolkata on 12 October 2026 for 5 passengers.",
+          "category": "flight_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Searches outbound flight for 5 passengers; verifies sufficient inventory (5+ seats).",
+          "expected_intent": "one_way_economy_flight_search",
+          "required_entities": {
+            "origin": "Mumbai",
+            "destination": "Kolkata",
+            "departure_date": "2026-10-12",
+            "passengers": 5,
+            "cabin": "economy",
+            "currency": "INR"
+          },
+          "inventory_available": true,
+          "observed_result": "2 fares returned with seats for five.",
+          "notes": "Validates group availability on outbound leg."
+        },
+        {
+          "prompt": "Find flights from Kolkata to Mumbai on 16 October 2026 for 5 passengers.",
+          "category": "flight_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "EXPECTED_CLARIFICATION",
+          "expected_behavior": "Detects zero fares for 5 passengers on 16 Oct 2026; returns empty result with nearby available dates.",
+          "expected_intent": "one_way_economy_flight_search",
+          "required_entities": {
+            "origin": "Kolkata",
+            "destination": "Mumbai",
+            "departure_date": "2026-10-16",
+            "passengers": 5,
+            "cabin": "economy",
+            "currency": "INR"
+          },
+          "inventory_available": false,
+          "observed_result": "No fare for 5 passengers on 16 Oct; suggested available dates 2026-11-04 and 2026-11-19.",
+          "notes": "Maintains data fidelity without fabricating flights."
+        }
+      ]
+    },
+    {
+      "id": "hotel_search",
+      "label": "Find hotels",
+      "surface": "Stays form (not chat)",
+      "description": "Direct hotel search with destination, check-in, check-out, guests, and whole-stay budget.",
+      "examples": [
+        {
+          "prompt": "Find hotels in Lucknow from 16 to 19 November 2026 for 2 adults under ₹40000 total.",
+          "category": "hotel_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Searches Lucknow hotels for 3 nights within ₹40000 total stay budget.",
+          "expected_intent": "whole_stay_search",
+          "required_entities": {
+            "city": "Lucknow",
+            "check_in": "2026-11-16",
+            "check_out": "2026-11-19",
+            "travellers": 2,
+            "whole_stay_budget": "40000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "8 room/stay options returned.",
+          "notes": "Budget applies to whole stay, not per night."
+        },
+        {
+          "prompt": "Find hotels in Bengaluru from 14 to 19 October 2026 for 2 adults under ₹100000 total.",
+          "category": "hotel_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Searches Bengaluru hotels for 5 nights within ₹100000 total stay budget.",
+          "expected_intent": "whole_stay_search",
+          "required_entities": {
+            "city": "Bengaluru",
+            "check_in": "2026-10-14",
+            "check_out": "2026-10-19",
+            "travellers": 2,
+            "whole_stay_budget": "100000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "1 room/stay option returned.",
+          "notes": "Nightly rate multiplied across 5 nights."
+        },
+        {
+          "prompt": "Find hotels in Hyderabad from 15 to 18 October 2026 for 2 adults under ₹55000 total.",
+          "category": "hotel_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Searches Hyderabad hotels for 3 nights within ₹55000 total stay budget.",
+          "expected_intent": "whole_stay_search",
+          "required_entities": {
+            "city": "Hyderabad",
+            "check_in": "2026-10-15",
+            "check_out": "2026-10-18",
+            "travellers": 2,
+            "whole_stay_budget": "55000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "1 room/stay option returned.",
+          "notes": "Enforces room occupancy capacity."
+        },
+        {
+          "prompt": "Find hotels in Jaipur from 4 to 9 November 2026 for 2 adults under ₹75000 total.",
+          "category": "hotel_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "PASS",
+          "expected_behavior": "Searches Jaipur hotels for 5 nights within ₹75000 total stay budget.",
+          "expected_intent": "whole_stay_search",
+          "required_entities": {
+            "city": "Jaipur",
+            "check_in": "2026-11-04",
+            "check_out": "2026-11-09",
+            "travellers": 2,
+            "whole_stay_budget": "75000.00 INR"
+          },
+          "inventory_available": true,
+          "observed_result": "5 room/stay options returned.",
+          "notes": "Returns multiple hotel options."
+        },
+        {
+          "prompt": "Find hotels in Kolkata from 12 to 16 October 2026 for 5 adults under ₹100000 total.",
+          "category": "hotel_search",
+          "supported": true,
+          "database_validated": true,
+          "validation": "EXPECTED_CLARIFICATION",
+          "expected_behavior": "Checks Kolkata inventory for 5 adults; finds no single room type or units meeting occupancy; returns zero results cleanly without hallucination.",
+          "expected_intent": "whole_stay_search",
+          "required_entities": {
+            "city": "Kolkata",
+            "check_in": "2026-10-12",
+            "check_out": "2026-10-16",
+            "travellers": 5,
+            "whole_stay_budget": "100000.00 INR"
+          },
+          "inventory_available": false,
+          "observed_result": "Zero rooms returned for 5 adults over full stay.",
+          "notes": "Preserves inventory integrity."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+var/
+*.db
+*.db-journal
+.env.backend
+.env.agent
+__pycache__/

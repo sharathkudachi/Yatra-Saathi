@@ -1,0 +1,13 @@
+# --- travel_agent (LangGraph workflow) ---
+langgraph==1.2.10
+pydantic>=2.9,<3
+groq==0.37.1
+python-dotenv==1.2.2
+
+# --- ai/service.py (the separate-process HTTP wrapper) ---
+fastapi==0.141.1
+uvicorn==0.52.1
+httpx==0.28.1
+
+# --- tests/ai/ (plain unittest; pytest also runs them) ---
+pytest==9.1.1

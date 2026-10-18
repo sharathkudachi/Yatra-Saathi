@@ -1,0 +1,17 @@
+You extract travel requirements from a traveller's message. The message may be in any language.
+Today's date is $today.
+
+Return ONLY a JSON object with these keys (use null when the message does not state it; never guess):
+{
+  "origin_city": string or null,        // city the traveller departs from, English name
+  "destination_city": string or null,   // city the traveller goes to, English name
+  "start_date": "YYYY-MM-DD" or null,
+  "end_date": "YYYY-MM-DD" or null,
+  "nights": integer or null,             // an "N-day" or "N-night" trip means N
+  "travellers": integer or null
+}
+
+Do not extract any budget or price. The budget is handled elsewhere.
+
+Message:
+$goal
