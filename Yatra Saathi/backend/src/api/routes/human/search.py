@@ -70,7 +70,7 @@ def hotel_rooms(hotel_id: str, body: HotelRoomsRequest, conn: sqlite3.Connection
 @router.get("/currencies")
 def currencies(conn: sqlite3.Connection = Depends(get_conn)):
     """Currencies a trip can be planned in, with the indicative demo rates used for conversion."""
-    names = {r["iso4217"]: dict(r) for r in conn.execute("SELECT iso4217, name, symbol FROM currencies")}
+    names = {r["iso4217"]: dict(r) for r in conn.execute("SELECT iso4217, name, symbol FROM currencies").fetchall()}
     rows = [{"code": r["iso4217"], "name": names.get(r["iso4217"], {}).get("name", r["iso4217"]),
              "symbol": names.get(r["iso4217"], {}).get("symbol", ""), "inrPerUnit": r["inr_per_unit"]}
             for r in fx.rate_rows()]

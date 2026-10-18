@@ -134,12 +134,16 @@ POSTGRES_DDL_STATEMENTS = [
     """CREATE UNIQUE INDEX IF NOT EXISTS uq_users_username_lower ON users (LOWER(username)) WHERE username IS NOT NULL;""",
 
     """CREATE TABLE IF NOT EXISTS auth_rate_limits (
-        ip_address VARCHAR(64) PRIMARY KEY,
-        attempt_count INTEGER NOT NULL DEFAULT 0,
-        first_attempt_at DOUBLE PRECISION NOT NULL,
-        last_attempt_at DOUBLE PRECISION NOT NULL,
-        locked_until DOUBLE PRECISION NOT NULL DEFAULT 0.0
+        attempt_key VARCHAR(255) NOT NULL,
+        attempt_type VARCHAR(64) NOT NULL,
+        attempt_count INTEGER NOT NULL DEFAULT 1,
+        first_attempt VARCHAR(64) NOT NULL,
+        last_attempt VARCHAR(64) NOT NULL,
+        blocked_until VARCHAR(64),
+        CONSTRAINT pk_auth_rate_limits PRIMARY KEY (attempt_key, attempt_type)
     );""",
+
+    """CREATE INDEX IF NOT EXISTS ix_auth_rate_limits_key ON auth_rate_limits (attempt_key);""",
 
     """CREATE TABLE IF NOT EXISTS auth_audit_log (
         log_id VARCHAR(64) PRIMARY KEY,
@@ -429,10 +433,81 @@ POSTGRES_DDL_STATEMENTS = [
 ]
 
 
+_DEFAULT_CURRENCIES = [
+    ("INR", "Indian Rupee", "₹", 2),
+    ("USD", "US Dollar", "$", 2),
+    ("EUR", "Euro", "€", 2),
+    ("GBP", "Pound Sterling", "£", 2),
+    ("AED", "UAE Dirham", "د.إ", 2),
+    ("SGD", "Singapore Dollar", "S$", 2),
+    ("THB", "Thai Baht", "฿", 2),
+    ("LKR", "Sri Lankan Rupee", "Rs", 2),
+    ("NPR", "Nepalese Rupee", "Rs", 2),
+    ("BTN", "Bhutanese Ngultrum", "Nu.", 2),
+    ("MVR", "Maldivian Rufiyaa", ".ރ", 2),
+    ("JPY", "Japanese Yen", "¥", 0),
+    ("KRW", "South Korean Won", "₩", 0),
+    ("KWD", "Kuwaiti Dinar", "د.ك", 3),
+    ("BHD", "Bahraini Dinar", ".د.ب", 3),
+    ("AUD", "Australian Dollar", "A$", 2),
+    ("CAD", "Canadian Dollar", "C$", 2),
+    ("CHF", "Swiss Franc", "CHF", 2),
+    ("MYR", "Malaysian Ringgit", "RM", 2),
+    ("IDR", "Indonesian Rupiah", "Rp", 2),
+    ("VND", "Vietnamese Dong", "₫", 0),
+    ("CNY", "Chinese Yuan", "¥", 2),
+    ("QAR", "Qatari Riyal", "ر.ق", 2),
+    ("SAR", "Saudi Riyal", "ر.س", 2),
+    ("NZD", "New Zealand Dollar", "NZ$", 2),
+]
+
+
 def init_postgres_schema(conn: Any) -> int:
     """Applies the PostgreSQL schema idempotently."""
+    # Ensure auth_rate_limits has canonical columns if table was created previously with legacy schema
+    try:
+        cur = conn.execute(
+            "SELECT column_name FROM information_schema.columns WHERE table_name = 'auth_rate_limits'"
+        )
+        existing_cols = {r[0] for r in cur.fetchall()}
+        if existing_cols and "attempt_key" not in existing_cols:
+            logger.info("[Postgres Schema] Applying additive migration to canonicalize auth_rate_limits...")
+            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_key VARCHAR(255)")
+            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS attempt_type VARCHAR(64) DEFAULT 'login'")
+            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS first_attempt VARCHAR(64)")
+            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS last_attempt VARCHAR(64)")
+            conn.execute("ALTER TABLE auth_rate_limits ADD COLUMN IF NOT EXISTS blocked_until VARCHAR(64)")
+            if "ip_address" in existing_cols:
+                conn.execute("ALTER TABLE auth_rate_limits ALTER COLUMN ip_address DROP NOT NULL")
+            conn.execute("CREATE INDEX IF NOT EXISTS ix_auth_rate_limits_key ON auth_rate_limits (attempt_key)")
+            try:
+                conn.execute("ALTER TABLE auth_rate_limits DROP CONSTRAINT IF EXISTS auth_rate_limits_pkey")
+                conn.execute("ALTER TABLE auth_rate_limits ADD CONSTRAINT pk_auth_rate_limits PRIMARY KEY (attempt_key, attempt_type)")
+            except Exception:
+                pass
+            conn.commit()
+    except Exception as exc:
+        logger.warning(f"[Postgres Schema] Notice on auth_rate_limits migration: {exc}")
+
     for ddl in POSTGRES_DDL_STATEMENTS:
         conn.execute(ddl)
     conn.commit()
+
+    # Seed default reference currencies if table is empty
+    try:
+        cur = conn.execute("SELECT COUNT(*) FROM currencies")
+        row = cur.fetchone()
+        cnt = row[0] if row else 0
+        if cnt == 0:
+            for code, name, sym, exp in _DEFAULT_CURRENCIES:
+                conn.execute(
+                    "INSERT INTO currencies (iso4217, name, symbol, exponent) VALUES (?, ?, ?, ?) ON CONFLICT (iso4217) DO NOTHING",
+                    (code, name, sym, exp),
+                )
+            conn.commit()
+            logger.info("[Postgres Schema] Seeded 25 reference currencies.")
+    except Exception as exc:
+        logger.warning(f"[Postgres Schema] Notice on currencies seeding: {exc}")
+
     logger.info("[Postgres Schema] Applied full PostgreSQL DDL schema idempotently.")
     return len(POSTGRES_DDL_STATEMENTS)

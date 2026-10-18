@@ -109,6 +109,21 @@ class PostgresCursorWrapper:
         cols = self._cols or []
         return [PostgresRow(r, cols) for r in rows]
 
+    def fetchmany(self, size: Optional[int] = None) -> List[PostgresRow]:
+        size = size or getattr(self._raw_cursor, "arraysize", 1)
+        rows = self._raw_cursor.fetchmany(size)
+        if not rows:
+            return []
+        cols = self._cols or []
+        return [PostgresRow(r, cols) for r in rows]
+
+    def __iter__(self) -> Iterator[PostgresRow]:
+        while True:
+            row = self.fetchone()
+            if row is None:
+                break
+            yield row
+
     @property
     def rowcount(self) -> int:
         return self._raw_cursor.rowcount
@@ -139,7 +154,12 @@ class PostgresConnectionWrapper:
         return PostgresCursorWrapper(cur)
 
     def commit(self) -> None:
-        self._raw_conn.commit()
+        try:
+            if getattr(self._raw_conn, "autocommit", False):
+                return
+            self._raw_conn.commit()
+        except Exception:
+            pass
 
     def rollback(self) -> None:
         self._raw_conn.rollback()
@@ -225,7 +245,15 @@ def connect_postgres(database_url: str, use_pool: bool = True) -> PostgresConnec
     if use_pool:
         pool = get_connection_pool(norm_url)
         raw_conn = pool.getconn()
+        try:
+            raw_conn.autocommit = True
+        except Exception:
+            pass
         return PostgresConnectionWrapper(raw_conn, pool=pool)
     else:
         raw_conn = psycopg2.connect(norm_url)
+        try:
+            raw_conn.autocommit = True
+        except Exception:
+            pass
         return PostgresConnectionWrapper(raw_conn, pool=None)

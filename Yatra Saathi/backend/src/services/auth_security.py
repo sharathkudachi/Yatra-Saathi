@@ -138,6 +138,10 @@ def check_rate_limit(
                WHERE attempt_key = ? AND attempt_type = ?""",
             (blocked_until, now_iso, key, attempt_type),
         )
+        try:
+            conn.commit()
+        except Exception:
+            pass
         return False, f"Too many failed attempts. Access temporarily locked for {block_seconds} seconds."
 
     return True, ""
@@ -168,6 +172,10 @@ def record_failed_attempt(
                VALUES (?, ?, 1, ?, ?, NULL)""",
             (key, attempt_type, now_iso, now_iso),
         )
+        try:
+            conn.commit()
+        except Exception:
+            pass
         return
 
     count = row["attempt_count"] if isinstance(row, sqlite3.Row) else row[0]
@@ -183,6 +191,10 @@ def record_failed_attempt(
                    WHERE attempt_key = ? AND attempt_type = ?""",
                 (now_iso, now_iso, key, attempt_type),
             )
+            try:
+                conn.commit()
+            except Exception:
+                pass
             return
     except Exception:
         pass
@@ -198,6 +210,10 @@ def record_failed_attempt(
            WHERE attempt_key = ? AND attempt_type = ?""",
         (new_count, now_iso, blocked_until, key, attempt_type),
     )
+    try:
+        conn.commit()
+    except Exception:
+        pass
 
 
 def clear_failed_attempts(
@@ -210,3 +226,7 @@ def clear_failed_attempts(
         "DELETE FROM auth_rate_limits WHERE attempt_key = ? AND attempt_type = ?",
         (key, attempt_type),
     )
+    try:
+        conn.commit()
+    except Exception:
+        pass
