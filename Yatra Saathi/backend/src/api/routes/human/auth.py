@@ -14,6 +14,11 @@ from __future__ import annotations
 import sqlite3
 from typing import Optional
 
+try:
+    import psycopg2
+except ImportError:  # SQLite-only environments do not require the PostgreSQL driver.
+    psycopg2 = None
+
 from fastapi import APIRouter, Depends, Request
 
 from src.api.deps import CurrentUser, get_clock, get_conn, get_current_user, get_settings
@@ -36,6 +41,12 @@ def _normalize_name(value: str) -> str:
 
 def _normalize_email(value: str) -> str:
     return value.strip().casefold()
+
+
+def _is_integrity_error(error: Exception) -> bool:
+    if isinstance(error, sqlite3.IntegrityError):
+        return True
+    return psycopg2 is not None and isinstance(error, psycopg2.IntegrityError)
 
 
 def _profile(user: trips_repo.User) -> dict:
@@ -96,17 +107,23 @@ def register(
     if existing_by_email is not None:
         raise RefusalError("DUPLICATE_EMAIL", "An account with this email already exists.", http_status=409)
 
-    # 4. Hash password with Argon2id (never logged or exposed)
+    # 4. Require a catalogue city before hashing or persisting the account.
+    city_row = conn.execute("SELECT city_id FROM cities ORDER BY city_id LIMIT 1").fetchone()
+    if city_row is None:
+        raise RefusalError(
+            "CITY_CATALOG_UNAVAILABLE",
+            "Registration is temporarily unavailable because no home city is configured.",
+            http_status=503,
+        )
+
+    # 5. Hash password with Argon2id (never logged or exposed)
     hashed_password = auth_security.hash_password(body.password)
 
-    # 5. Persist user record
+    # 6. Persist user record
     user_id = new_id("usr")
     now_iso = clock.now().isoformat()
     signup_date = clock.now().strftime("%Y-%m-%d")
-
-    # Pick a valid default home city from database
-    city_row = conn.execute("SELECT city_id FROM cities ORDER BY city_id LIMIT 1").fetchone()
-    default_city = city_row[0] if city_row else "cty_cfec17b6"
+    default_city = city_row[0]
 
     try:
         conn.execute(
@@ -122,7 +139,9 @@ def register(
                 clean_username, hashed_password, now_iso,
             ),
         )
-    except sqlite3.IntegrityError as err:
+    except Exception as err:
+        if not _is_integrity_error(err):
+            raise
         err_msg = str(err).lower()
         if "uq_users_username_lower" in err_msg or "username" in err_msg:
             raise RefusalError("DUPLICATE_USERNAME", "This username is already taken. Please choose another.", http_status=409)

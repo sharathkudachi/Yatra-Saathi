@@ -131,10 +131,18 @@ POSTGRES_DDL_STATEMENTS = [
         user_id VARCHAR(64) PRIMARY KEY,
         display_name VARCHAR(128) NOT NULL,
         email VARCHAR(255) NOT NULL,
+        home_city_id VARCHAR(32) NOT NULL REFERENCES cities(city_id),
         home_currency VARCHAR(3) NOT NULL DEFAULT 'INR',
         locale VARCHAR(16) NOT NULL DEFAULT 'en-IN',
+        budget_band TEXT NOT NULL,
+        travel_style TEXT NOT NULL,
+        traveller_type TEXT NOT NULL,
+        segment TEXT NOT NULL,
+        date_of_signup TEXT NOT NULL,
+        loyalty_tier TEXT,
         status VARCHAR(32) NOT NULL DEFAULT 'active',
         created_at VARCHAR(32) NOT NULL,
+        updated_at TEXT NOT NULL,
         username VARCHAR(64),
         password_hash TEXT,
         email_verified INTEGER NOT NULL DEFAULT 0,
@@ -590,6 +598,21 @@ _DEFAULT_CURRENCIES = [
 ]
 
 
+# Additive compatibility migration for databases with the earlier Postgres users table.
+# The original SQLite contract requires these profile fields, but existing Postgres rows
+# have no values for them; omit NOT NULL/defaults here to preserve those rows unchanged.
+POSTGRES_USER_REGISTRATION_MIGRATION = (
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS home_city_id VARCHAR(32) REFERENCES cities(city_id)",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS budget_band TEXT",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS travel_style TEXT",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS traveller_type TEXT",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS segment TEXT",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS date_of_signup TEXT",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS loyalty_tier TEXT",
+    "ALTER TABLE users ADD COLUMN IF NOT EXISTS updated_at TEXT",
+)
+
+
 def init_postgres_schema(conn: Any) -> int:
     """Applies the PostgreSQL schema idempotently."""
     # Ensure auth_rate_limits has canonical columns if table was created previously with legacy schema
@@ -739,6 +762,21 @@ def init_postgres_schema(conn: Any) -> int:
             except Exception:
                 pass
             logger.warning(f"[Postgres Schema] DDL notice: {exc}")
+
+    # Apply after table creation so this works for both fresh and existing databases.
+    # Keep the additive migration atomic and fail startup if any statement is rejected.
+    try:
+        conn.execute("BEGIN")
+        for stmt in POSTGRES_USER_REGISTRATION_MIGRATION:
+            conn.execute(stmt)
+        conn.execute("COMMIT")
+    except Exception:
+        try:
+            conn.rollback()
+        except Exception:
+            pass
+        logger.exception("[Postgres Schema] Registration-column migration failed")
+        raise
 
     # Seed default reference currencies if table is empty
     try:

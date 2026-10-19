@@ -1,5 +1,7 @@
 """Unit tests for PostgreSQL adapter, parameter conversion, row behavior, and Neon URL normalization."""
+import re
 import unittest
+from pathlib import Path
 from unittest.mock import MagicMock
 
 from src.core.config import Settings
@@ -238,6 +240,99 @@ class TestPostgresAdapter(unittest.TestCase):
         self.assertTrue(any("ALTER TABLE agent_sessions ADD COLUMN IF NOT EXISTS constraints_json" in s for s in executed_sqls))
         self.assertTrue(any("ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS is_read" in s for s in executed_sqls))
         self.assertTrue(any("ALTER TABLE phase6_notifications ADD COLUMN IF NOT EXISTS dedupe_key" in s for s in executed_sqls))
+
+    def test_postgres_users_bootstrap_matches_registration_insert(self):
+        """The PostgreSQL users table contains every column written by registration."""
+        from src.db.postgres_schema import POSTGRES_DDL_STATEMENTS
+
+        users_ddl = next(
+            ddl for ddl in POSTGRES_DDL_STATEMENTS
+            if re.search(r"CREATE TABLE IF NOT EXISTS users\s*\(", ddl, re.IGNORECASE)
+        )
+        auth_path = Path(__file__).resolve().parents[2] / "backend" / "src" / "api" / "routes" / "human" / "auth.py"
+        auth_source = auth_path.read_text(encoding="utf-8")
+        insert = re.search(r"INSERT INTO\s+users\s*\((.*?)\)\s*VALUES", auth_source, re.IGNORECASE | re.DOTALL)
+        self.assertIsNotNone(insert, "registration INSERT should be discoverable")
+        registration_columns = set(re.findall(r"\b[a-z_][a-z0-9_]*\b", insert.group(1), re.IGNORECASE))
+        schema_columns = set(re.findall(
+            r"^\s*([a-z_][a-z0-9_]*)\s+(?:TEXT|VARCHAR(?:\(\d+\))?|INTEGER)(?:\s|,|$)",
+            users_ddl, re.IGNORECASE | re.MULTILINE,
+        ))
+        self.assertTrue(registration_columns <= schema_columns, registration_columns - schema_columns)
+
+        expected_definitions = (
+            "home_city_id VARCHAR(32) NOT NULL REFERENCES cities(city_id)",
+            "budget_band TEXT NOT NULL",
+            "travel_style TEXT NOT NULL",
+            "traveller_type TEXT NOT NULL",
+            "segment TEXT NOT NULL",
+            "date_of_signup TEXT NOT NULL",
+            "loyalty_tier TEXT,",
+            "updated_at TEXT NOT NULL",
+        )
+        for definition in expected_definitions:
+            with self.subTest(definition=definition):
+                self.assertIn(definition, users_ddl)
+        for column in {
+            "home_city_id", "budget_band", "travel_style", "traveller_type",
+            "segment", "date_of_signup", "loyalty_tier", "updated_at",
+        }:
+            declaration = next(
+                line for line in users_ddl.splitlines()
+                if re.match(rf"\s*{column}\s+", line, re.IGNORECASE)
+            )
+            with self.subTest(column=column):
+                self.assertNotIn("DEFAULT", declaration.upper())
+
+    def test_postgres_users_registration_migration_is_additive_and_idempotent(self):
+        """Registration columns are added without defaults or rewrites and rerun safely."""
+        from src.db.postgres_schema import POSTGRES_USER_REGISTRATION_MIGRATION, init_postgres_schema
+
+        expected_columns = {
+            "home_city_id", "budget_band", "travel_style", "traveller_type",
+            "segment", "date_of_signup", "loyalty_tier", "updated_at",
+        }
+        migration_columns = {
+            re.fullmatch(r"ALTER TABLE users ADD COLUMN IF NOT EXISTS ([a-z_]+) .+", stmt).group(1)
+            for stmt in POSTGRES_USER_REGISTRATION_MIGRATION
+        }
+        self.assertEqual(migration_columns, expected_columns)
+        for stmt in POSTGRES_USER_REGISTRATION_MIGRATION:
+            self.assertNotRegex(stmt, r"\b(?:NOT NULL|DEFAULT|UPDATE|DELETE|DROP|TRUNCATE|RENAME)\b")
+
+        mock_conn = MagicMock()
+        count_cursor = MagicMock()
+        count_cursor.fetchone.return_value = (25,)
+        mock_conn.execute.return_value = count_cursor
+        init_postgres_schema(mock_conn)
+        init_postgres_schema(mock_conn)
+
+        executed_sqls = [call.args[0] for call in mock_conn.execute.call_args_list]
+        for stmt in POSTGRES_USER_REGISTRATION_MIGRATION:
+            with self.subTest(statement=stmt):
+                self.assertEqual(executed_sqls.count(stmt), 2)
+
+    def test_postgres_users_registration_migration_failure_is_raised(self):
+        """A rejected registration-column DDL rolls back and stops schema initialization."""
+        from unittest.mock import patch
+        from src.db.postgres_schema import POSTGRES_USER_REGISTRATION_MIGRATION, init_postgres_schema
+
+        registration_stmt = POSTGRES_USER_REGISTRATION_MIGRATION[0]
+        mock_conn = MagicMock()
+
+        def execute(statement, *_args):
+            if statement == registration_stmt:
+                raise RuntimeError("injected registration-column migration failure")
+            return MagicMock()
+
+        mock_conn.execute.side_effect = execute
+        with patch("src.db.postgres_schema.POSTGRES_DDL_STATEMENTS", []):
+            with self.assertRaisesRegex(RuntimeError, "injected registration-column migration failure"):
+                init_postgres_schema(mock_conn)
+
+        mock_conn.execute.assert_any_call("BEGIN")
+        self.assertNotIn("COMMIT", [call.args[0] for call in mock_conn.execute.call_args_list])
+        mock_conn.rollback.assert_called_once()
 
     def test_errors_cors_headers_approved_origin(self):
         """Errors handler attaches CORS headers for trusted frontend origin."""

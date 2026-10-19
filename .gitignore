@@ -55,6 +55,8 @@ pids.json
 Thumbs.db
 .gemini/
 .gsd/
+.neon
+.codex/
 
 # Root Prototype Lockfile (Preserves canonical kv-hack2026-tech4ce/frontend/package-lock.json)
 /package-lock.json

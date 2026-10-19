@@ -6,11 +6,29 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from dotenv import load_dotenv
 
-for candidate in [Path(__file__).parent.parent / ".env.backend", Path(".env.backend"), Path("backend/.env.backend")]:
-    if candidate.exists():
-        load_dotenv(candidate)
-        break
-load_dotenv()
+
+def _load_backend_environment(candidates: list[Path] | None = None) -> Path | None:
+    """Load backend config without falling through to the repository-wide .env.
+
+    The root .env may contain a production DATABASE_URL. When a backend-specific
+    file exists, its APS_DB_PATH must not be silently overridden by that file.
+    Process environment variables remain authoritative as usual.
+    """
+    if candidates is None:
+        candidates = [
+            Path(__file__).parent.parent / ".env.backend",
+            Path(".env.backend"),
+            Path("backend/.env.backend"),
+        ]
+    for candidate in candidates:
+        if candidate.exists():
+            load_dotenv(candidate)
+            return candidate
+    load_dotenv()
+    return None
+
+
+_load_backend_environment()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
