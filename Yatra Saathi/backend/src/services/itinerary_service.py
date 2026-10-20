@@ -17,6 +17,7 @@ from typing import Optional
 from src.contracts.codes import RefusalError
 from src.core import fx, money
 from src.core.clock import Clock
+from src.core.dates import parse_date_only
 from src.core.geo import is_valid_coord
 from src.core.ids import new_id
 from src.db.repositories import carts as carts_repo
@@ -393,8 +394,8 @@ def get_itinerary(conn: sqlite3.Connection, itinerary_id: str, user_id: Optional
 
     origin = meta.get("origin") or row["origin_name"] or "Origin"
     destination = meta.get("destination") or row["dest_name"] or "Destination"
-    start_date = date.fromisoformat(row["start_date"])
-    end_date = date.fromisoformat(row["end_date"])
+    start_date = parse_date_only(row["start_date"])
+    end_date = parse_date_only(row["end_date"])
     status = ItineraryStatus(row["status"]) if row["status"] in [s.value for s in ItineraryStatus] else ItineraryStatus.DRAFT
 
     # Fetch items and group into days
@@ -627,8 +628,8 @@ def build_plan_from_session(conn: sqlite3.Connection, session_id: str, user_id: 
                 room_type_id=it.entity_id if it.entity_type == "room_type" else None,
                 room_name=details.get("room"),
                 address=details.get("address"),
-                check_in_date=date.fromisoformat(it.for_date),
-                check_out_date=date.fromisoformat(it.for_date) + timedelta(days=1),
+                check_in_date=parse_date_only(it.for_date),
+                check_out_date=parse_date_only(it.for_date) + timedelta(days=1),
                 known_price=money.format_minor(it.line_total_minor),
                 currency=currency,
                 latitude=float(details["latitude"]) if details.get("latitude") is not None else None,
@@ -639,8 +640,8 @@ def build_plan_from_session(conn: sqlite3.Connection, session_id: str, user_id: 
     if not dest or not start or not end:
         return None
 
-    s_date = date.fromisoformat(start)
-    e_date = date.fromisoformat(end)
+    s_date = parse_date_only(start)
+    e_date = parse_date_only(end)
     num_days = max((e_date - s_date).days + 1, 1)
 
     pois = catalog_repo.list_activities(conn, city_name=dest, limit=50)

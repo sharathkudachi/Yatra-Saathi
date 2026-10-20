@@ -707,6 +707,7 @@ export default function App() {
       rememberSession(sessionId)
     } catch {
       rememberSession(null)
+      resetSession()
     }
   }
 
@@ -748,21 +749,50 @@ export default function App() {
     setChatDraft(''); setAgentLoading(true); setError('')
     try {
       let session = agentSession
+      // If destination changed, start a fresh session for the new destination
+      const destChanged = Boolean(
+        brief.destination && session?.goalText && !session.goalText.toLowerCase().includes(brief.destination.toLowerCase())
+      )
       // The brief's budget is the session's hard cap and a chat message can only lower it, so a
       // raised (or changed) budget while Yatra waits for an answer needs a fresh session.
       const capChanged = session?.status === 'awaiting_input' && session.spendCap !== spendCap
-      if (!session || session.status === 'completed' || session.status === 'failed' || capChanged) {
+      if (!session || session.status === 'completed' || session.status === 'failed' || capChanged || destChanged) {
         resetSession()
         session = await sessionService.create(message, brief, language.tag, spendCap)
         rememberSession(session.sessionId)
       }
-      await sessionService.sendMessage(session.sessionId, message)
+      try {
+        await sessionService.sendMessage(session.sessionId, message)
+      } catch (sendErr) {
+        // Automatic recovery for stale/missing/expired session (e.g. backend restart, DB reset, or 404):
+        if (
+          sendErr instanceof ApiError &&
+          (sendErr.status === 404 || sendErr.code === 'SESSION_ACCESS_DENIED' || sendErr.message.includes('no such session'))
+        ) {
+          resetSession()
+          rememberSession(null)
+          session = await sessionService.create(message, brief, language.tag, spendCap)
+          rememberSession(session.sessionId)
+          await sessionService.sendMessage(session.sessionId, message)
+        } else {
+          throw sendErr
+        }
+      }
       pollStartedAt.current = Date.now(); setStalled(false)
       await loadSession(session.sessionId)
     } catch (cause) {
+      if (
+        cause instanceof ApiError &&
+        (cause.status === 404 || cause.code === 'SESSION_ACCESS_DENIED' || cause.message.includes('no such session'))
+      ) {
+        resetSession()
+        rememberSession(null)
+      }
       const text = cause instanceof ApiError && cause.code === 'INVALID_STATE' ? t('session.busy')
         : cause instanceof ApiError && cause.status === 401 ? t('session.needLogin')
-          : cause instanceof ApiError ? cause.message : t('auth.unreachable')
+          : cause instanceof ApiError && (cause.status === 404 || cause.message.includes('no such session'))
+            ? 'Your planning session expired or was not found. Please try sending your message again to start a new plan.'
+            : cause instanceof ApiError ? cause.message : t('auth.unreachable')
       setChatMessages((current) => [...current, { role: 'assistant', content: text }])
     } finally { setAgentLoading(false) }
   }

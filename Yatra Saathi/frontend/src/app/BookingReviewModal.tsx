@@ -98,15 +98,31 @@ export default function BookingReviewModal({
       const msg = String(err?.message || '')
       if (msg.includes('TOKEN_MISSING') || msg.includes('missing bearer token') || msg.includes('401') || msg.includes('Unauthorized')) {
         setAuthRequired(true)
-      } else if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('fetch')) {
+      } else if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('fetch') || msg.includes('CONNECTION_REFUSED')) {
         setError('Unable to load booking review details. The backend service may be reconnecting.')
+      } else if (msg.includes('INTERNAL_ERROR') || msg.includes('internal server error')) {
+        setError('Unable to prepare booking review at this time. Please retry or adjust your itinerary.')
+      } else if (msg.includes('ITINERARY_NOT_BOOKABLE') || msg.includes('not bookable') || msg.includes('not found')) {
+        setError('Itinerary could not be prepared for booking. Please generate or select an active trip itinerary.')
+      } else if (msg.includes('INVENTORY_UNAVAILABLE') || msg.includes('insufficient inventory') || msg.includes('no availability')) {
+        setError('One or more selected flights or hotel rooms are no longer available. Please select an alternative option.')
       } else {
-        setError(msg || 'Could not generate booking review. Please verify itinerary.')
+        setError(msg && msg.length < 150 && !msg.includes('Traceback') && !msg.includes('SELECT') ? msg : 'Could not generate booking review. Please verify itinerary.')
       }
     } finally {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose()
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [onClose])
 
   useEffect(() => {
     void loadReview()
@@ -153,7 +169,15 @@ export default function BookingReviewModal({
   }
 
   return (
-    <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="booking-review-title">
+    <div
+      className="modal-backdrop"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="booking-review-title"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
       <div className="booking-review-modal">
         {/* Header */}
         <div className="modal-header">
@@ -175,25 +199,46 @@ export default function BookingReviewModal({
             <div className="booking-error-banner" role="alert">
               <AlertCircle size={16} />
               <span style={{ flex: 1 }}>{error}</span>
-              <button
-                type="button"
-                className="retry-review-btn"
-                onClick={() => void loadReview()}
-                style={{
-                  background: 'var(--color-primary-600, #2563eb)',
-                  color: '#fff',
-                  border: 'none',
-                  padding: '4px 10px',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontSize: '0.8rem',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                }}
-              >
-                <RefreshCw size={12} /> Retry
-              </button>
+              <div className="error-banner-actions" style={{ display: 'inline-flex', gap: '8px', alignItems: 'center' }}>
+                <button
+                  type="button"
+                  className="retry-review-btn"
+                  onClick={() => void loadReview()}
+                  style={{
+                    background: 'var(--color-primary-600, #2563eb)',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '4px 10px',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontSize: '0.8rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  <RefreshCw size={12} /> Retry
+                </button>
+                <button
+                  type="button"
+                  className="cancel-error-btn"
+                  onClick={onClose}
+                  style={{
+                    background: 'transparent',
+                    color: 'inherit',
+                    border: '1px solid currentColor',
+                    padding: '4px 10px',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontSize: '0.8rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           )}
 
@@ -409,27 +454,29 @@ export default function BookingReviewModal({
         </div>
 
         {/* Modal Footer Actions */}
-        {!confirmedBooking && review && (
+        {!confirmedBooking && (
           <div className="modal-footer">
             <button type="button" className="cancel-btn" onClick={onClose} disabled={confirming}>
-              Go Back
+              {review ? 'Go Back' : 'Close'}
             </button>
-            <button
-              type="button"
-              className="confirm-btn"
-              onClick={handleConfirmReservation}
-              disabled={confirming || countdown === 'Expired'}
-            >
-              {confirming ? (
-                <>
-                  <RefreshCw size={14} className="spin-icon" /> Securing Inventory Hold…
-                </>
-              ) : (
-                <>
-                  <UserCheck size={14} /> Confirm & Reserve Demo Booking <ArrowRight size={14} />
-                </>
-              )}
-            </button>
+            {review && (
+              <button
+                type="button"
+                className="confirm-btn"
+                onClick={handleConfirmReservation}
+                disabled={confirming || countdown === 'Expired'}
+              >
+                {confirming ? (
+                  <>
+                    <RefreshCw size={14} className="spin-icon" /> Securing Inventory Hold…
+                  </>
+                ) : (
+                  <>
+                    <UserCheck size={14} /> Confirm & Reserve Demo Booking <ArrowRight size={14} />
+                  </>
+                )}
+              </button>
+            )}
           </div>
         )}
       </div>

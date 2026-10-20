@@ -342,7 +342,7 @@ def create_booking_review(
     except RefusalError as exc:
         if exc.code == "SESSION_ACCESS_DENIED":
             raise RefusalError("BOOKING_OWNERSHIP_DENIED", "Access denied to itinerary", http_status=403) from exc
-        raise RefusalError("ITINERARY_NOT_BOOKABLE", f"Itinerary not found or not bookable: {exc}", http_status=404) from exc
+        raise RefusalError("ITINERARY_NOT_BOOKABLE", f"Itinerary not found or not bookable: {exc.message}", http_status=404) from exc
 
     # 2. Check bookability
     if itinerary.status == ItineraryStatus.CANCELLED:
@@ -398,24 +398,25 @@ def create_booking_review(
     # 9. Audit event
     event_id = new_id("p5e")
     # Record review audit
-    conn.execute(
-        """INSERT INTO phase5_booking_events
-           (event_id, booking_id, user_id, event_type, occurred_at, actor, prev_status, new_status, metadata_json)
-           VALUES (?, ?, ?, 'BOOKING_REVIEW_VALIDATED', ?, 'user', NULL, 'ready_for_confirmation', ?)""",
-        (
-            event_id,
-            itinerary.id,  # reference itinerary for pre-booking review
-            user_id,
-            clock.utc(),
-            json.dumps({
-                "itinerary_id": itinerary.id,
-                "version": itinerary.version,
-                "authoritative_total": authoritative_total,
-                "currency": itinerary.currency,
-                "traveller_count": len(request.travellers),
-            }),
-        ),
-    )
+    with transaction(conn):
+        conn.execute(
+            """INSERT INTO phase5_booking_events
+               (event_id, booking_id, user_id, event_type, occurred_at, actor, prev_status, new_status, metadata_json)
+               VALUES (?, ?, ?, 'BOOKING_REVIEW_VALIDATED', ?, 'user', NULL, 'ready_for_confirmation', ?)""",
+            (
+                event_id,
+                itinerary.id,  # reference itinerary for pre-booking review
+                user_id,
+                clock.utc(),
+                json.dumps({
+                    "itinerary_id": itinerary.id,
+                    "version": itinerary.version,
+                    "authoritative_total": authoritative_total,
+                    "currency": itinerary.currency,
+                    "traveller_count": len(request.travellers),
+                }),
+            ),
+        )
 
     return BookingReviewResponse(
         review_token=review_token,
@@ -464,18 +465,19 @@ def create_inventory_hold(
     hold_id = new_id("hld")
 
     # Log audit event
-    conn.execute(
-        """INSERT INTO phase5_booking_events
-           (event_id, booking_id, user_id, event_type, occurred_at, actor, prev_status, new_status, metadata_json)
-           VALUES (?, ?, ?, 'INVENTORY_HOLD_CREATED', ?, 'system', 'ready_for_confirmation', 'holding', ?)""",
-        (
-            new_id("aud"),
-            itinerary_id,
-            user_id,
-            now_iso,
-            json.dumps({"hold_id": hold_id, "expires_at": expires_at}),
-        ),
-    )
+    with transaction(conn):
+        conn.execute(
+            """INSERT INTO phase5_booking_events
+               (event_id, booking_id, user_id, event_type, occurred_at, actor, prev_status, new_status, metadata_json)
+               VALUES (?, ?, ?, 'INVENTORY_HOLD_CREATED', ?, 'system', 'ready_for_confirmation', 'holding', ?)""",
+            (
+                new_id("aud"),
+                itinerary_id,
+                user_id,
+                now_iso,
+                json.dumps({"hold_id": hold_id, "expires_at": expires_at}),
+            ),
+        )
 
     return {
         "hold_id": hold_id,
@@ -1113,30 +1115,30 @@ def generate_trip_pack(
         ),
     )
 
-    # Persist in trip_packs table
-    p5_repo.upsert_trip_pack(
-        conn,
-        pack_id=pack_id,
-        booking_id=booking_id,
-        user_id=user_id,
-        pack_data=pack_response.model_dump(mode="json"),
-        generated_at=now_iso,
-    )
+    # Persist in trip_packs table & record audit event
+    with transaction(conn):
+        p5_repo.upsert_trip_pack(
+            conn,
+            pack_id=pack_id,
+            booking_id=booking_id,
+            user_id=user_id,
+            pack_data=pack_response.model_dump(mode="json"),
+            generated_at=now_iso,
+        )
 
-    # Audit event
-    conn.execute(
-        """INSERT INTO phase5_booking_events (
-            event_id, booking_id, user_id, event_type, occurred_at, actor,
-            prev_status, new_status, metadata_json
-        ) VALUES (?, ?, ?, 'TRIP_PACK_GENERATED', ?, 'user', NULL, NULL, ?)""",
-        (
-            new_id("aud"),
-            booking_id,
-            user_id,
-            now_iso,
-            json.dumps({"pack_id": pack_id, "booking_reference": booking_row["booking_reference"]}),
-        ),
-    )
+        conn.execute(
+            """INSERT INTO phase5_booking_events (
+                event_id, booking_id, user_id, event_type, occurred_at, actor,
+                prev_status, new_status, metadata_json
+            ) VALUES (?, ?, ?, 'TRIP_PACK_GENERATED', ?, 'user', NULL, NULL, ?)""",
+            (
+                new_id("aud"),
+                booking_id,
+                user_id,
+                now_iso,
+                json.dumps({"pack_id": pack_id, "booking_reference": booking_row["booking_reference"]}),
+            ),
+        )
 
     return pack_response
 

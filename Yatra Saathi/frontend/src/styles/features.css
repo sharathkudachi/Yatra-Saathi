@@ -966,6 +966,28 @@ button,input,select,textarea{transition:border-color .16s ease,background-color 
 .booking-review-modal, .trip-pack-modal{background:var(--card-bg,#fff);border-radius:12px;width:90%;max-width:680px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 45px rgba(0,0,0,.22);overflow:hidden;border:1px solid var(--border-color,#e2e8f0)}
 :root[data-theme="dark"] .booking-review-modal, :root[data-theme="dark"] .trip-pack-modal{background:#111a13;border-color:#223325}
 
+.booking-review-modal .modal-header{display:flex;align-items:flex-start;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border-color,#e2e8f0);background:var(--card-bg,#fff);position:relative}
+:root[data-theme="dark"] .booking-review-modal .modal-header{border-color:#223325;background:#111a13}
+.booking-review-modal .title-group{display:flex;flex-direction:column;gap:6px}
+.booking-review-modal .title-group h2{margin:0;font-size:18px;font-weight:700;color:var(--text-color,#0f172a)}
+:root[data-theme="dark"] .booking-review-modal .title-group h2{color:#f8fafc}
+.booking-review-modal .modal-close{position:relative;top:auto;right:auto;background:transparent;border:1px solid transparent;border-radius:8px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;color:var(--text-muted,#64748b);cursor:pointer;transition:all .15s ease;flex-shrink:0}
+.booking-review-modal .modal-close:hover{background:rgba(0,0,0,.05);color:var(--text-color,#0f172a);border-color:var(--border-color,#cbd5e1)}
+:root[data-theme="dark"] .booking-review-modal .modal-close{color:#94a3b8}
+:root[data-theme="dark"] .booking-review-modal .modal-close:hover{background:rgba(255,255,255,.08);color:#f8fafc;border-color:#334155}
+.booking-review-modal .modal-body{padding:20px 22px;overflow-y:auto;flex:1}
+.booking-review-modal .modal-footer{display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:16px 22px;border-top:1px solid var(--border-color,#e2e8f0);background:var(--subtle-bg,#f8fafc);margin-top:auto}
+:root[data-theme="dark"] .booking-review-modal .modal-footer{background:#141f17;border-color:#243527}
+.booking-review-modal .cancel-btn{padding:8px 18px;border:1px solid var(--border-color,#cbd5e1);background:var(--card-bg,#fff);border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;color:var(--text-color,#334155);transition:all .15s ease}
+.booking-review-modal .cancel-btn:hover{background:var(--subtle-bg,#f1f5f9);color:var(--text-color,#0f172a)}
+:root[data-theme="dark"] .booking-review-modal .cancel-btn{background:#18241b;border-color:#2f4534;color:#cbd5e1}
+:root[data-theme="dark"] .booking-review-modal .cancel-btn:hover{background:#203225;color:#f8fafc}
+.booking-review-modal .confirm-btn{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#059669,#047857);color:#fff;border:none;border-radius:6px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s ease;box-shadow:0 2px 6px rgba(5,150,105,.25)}
+.booking-review-modal .confirm-btn:hover:not(:disabled){background:linear-gradient(135deg,#047857,#065f46);transform:translateY(-1px);box-shadow:0 4px 10px rgba(5,150,105,.35)}
+.booking-review-modal .confirm-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.cancel-error-btn:hover{background:rgba(0,0,0,.08)!important}
+:root[data-theme="dark"] .cancel-error-btn:hover{background:rgba(255,255,255,.12)!important}
+
 .demo-badge{display:inline-flex;align-items:center;gap:5px;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;padding:2px 8px;border-radius:12px;font-size:9.5px;font-weight:700;letter-spacing:.3px}
 :root[data-theme="dark"] .demo-badge{background:#2a1f0a;color:#fcd34d;border-color:#78350f}
 

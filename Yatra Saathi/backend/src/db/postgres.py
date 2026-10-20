@@ -170,6 +170,11 @@ class PostgresConnectionWrapper:
         self._closed = True
         if self._pool is not None:
             try:
+                if self.in_transaction:
+                    try:
+                        self._raw_conn.rollback()
+                    except Exception:
+                        pass
                 self._pool.putconn(self._raw_conn)
             except Exception:
                 try:

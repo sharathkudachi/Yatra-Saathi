@@ -57,6 +57,10 @@ Thumbs.db
 .gsd/
 .neon
 .codex/
+.agents/
+skills-lock.json
+prior_investigation_draft.md
+scratch_prompt*
 
 # Root Prototype Lockfile (Preserves canonical kv-hack2026-tech4ce/frontend/package-lock.json)
 /package-lock.json
