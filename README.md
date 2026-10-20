@@ -1,6 +1,5 @@
 
-# kv-hack2026-tech4ce
-KogniVera Hackathon 2026 — Tech4ce
+# Yatra-Saathi
 =======
 # Yatra frontend
 
